@@ -1,0 +1,2 @@
+# fjs
+format js
