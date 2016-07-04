@@ -4,20 +4,17 @@
 
 'use strict';
 
-import {print} from './Printers';
+import type {Input, Output} from './types';
 
+import * as babel from 'babel-core';
 import format from './format';
-import init from './init';
+import getPrinters from './getPrinters';
+import getRules from './getRules';
+import print from './print';
 
-// TODO: Pass in the original source, so we can do source maps.
-// TODO: Create 'stack' class for storing arbitrary crap that simulates current call stack.
-// TODO: Should we add options? At least for line-length.
-// TODO: Fix default printer to use loc and original source instead of tokens.
-// TODO: Add place to override printers.
-function fjs(ast) {
-  init();
-  const tokens = print(ast);
-  return format(tokens);
+export default function fjs(input: Input): Output {
+  const {ast} = babel.transform(input.code);
+  const tokens = print(getPrinters(), ast);
+  const code = format(getRules(), tokens);
+  return {code};
 }
-
-export default fjs;

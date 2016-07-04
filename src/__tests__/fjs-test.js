@@ -4,10 +4,12 @@
 
 jest.autoMockOff();
 
-import {transform} from 'babel-core';
 import fjs from '../fjs/';
 
+function t(s) {
+  return fjs({code: s}).code;
+}
+
 it('lives!!', () => {
-  const {ast} = transform(`1  +  1;\n`);
-  expect(fjs(ast)).toBe(`1+1;\n`);
+  expect(t(`1+1;\n`)).toBe(`1+1;`);
 });

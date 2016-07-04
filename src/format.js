@@ -6,8 +6,9 @@
 
 import invariant from 'assert';
 
-function format(tokens) {
+function format(rules, tokens) {
   return tokens
+    .filter(x => !!x)
     .map(token => {
       switch (token.type) {
         case 'line':

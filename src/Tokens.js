@@ -5,6 +5,11 @@
 'use strict';
 
 const Tokens = {
+  semiColon: () => ({
+    type: 'string',
+    value: ';',
+  }),
+
   /**
    * Creates a simple string token.
    */
