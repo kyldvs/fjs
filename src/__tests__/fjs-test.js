@@ -4,12 +4,63 @@
 
 jest.autoMockOff();
 
+import assert from 'assert';
 import fjs from '../fjs/';
+import fs from 'fs';
+import path from 'path';
 
-function t(s) {
-  return fjs({code: s}).code;
+const FIXTURES_PATH = path.join(__dirname, '..', '__fixtures__');
+
+function buildFixtures(originalFilePath) {
+  let arr = [];
+  const filePaths = fs.readdirSync(originalFilePath);
+  filePaths.forEach(fileName => {
+    const filePath = path.join(originalFilePath, fileName);
+    const stats = fs.statSync(filePath);
+    if (stats.isDirectory()) {
+      arr = [].concat(arr, buildFixtures(filePath));
+    } else if (stats.isFile()) {
+      const fileName = path.basename(filePath);
+      if (fileName.endsWith('.in')) {
+        const testName = fileName.slice(0, -3);
+        const inPath = filePath;
+        const outPath = filePath.slice(0, -3) + '.out';
+        let inContents = fs.readFileSync(inPath, 'utf8');
+        let outContents = null;
+        try {
+          outContents = fs.readFileSync(outPath, 'utf8');
+        } catch (error) {
+          it(testName, () => {
+            assert(
+              false,
+              'Expected a corresponding output file to match the input ' +
+              'file for "' +
+              testName +
+              '", but "' +
+              outPath +
+              '" does not exist. (or there was some error reading it)',
+            );
+          });
+        }
+        arr.push({
+          name: testName,
+          input: inContents,
+          output: outContents,
+        });
+      }
+    }
+  });
+  return arr;
 }
 
-it('lives!!', () => {
-  expect(t(`1+1;\n`)).toBe(`1+1;`);
+describe('fjs', () => {
+  buildFixtures(FIXTURES_PATH).forEach(fixture => {
+    it(fixture.name, () => {
+      const inputCode = fixture.input;
+      const input = {code: inputCode};
+      const output = fjs(input);
+      const outputCode = output.code;
+      expect(outputCode).toBe(fixture.output);
+    });
+  });
 });
