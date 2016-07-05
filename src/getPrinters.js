@@ -16,6 +16,12 @@ export default function getPrinters() {
       print(node.right),
     ],
 
+    CommentLine: ({node}) => [
+      Tokens.string('//'),
+      Tokens.string(node.value),
+      Tokens.string('\n'),
+    ],
+
     File: ({print, node}) => [
       print(node.program),
        // Files end with new lines. Strip the wrapping File node if you

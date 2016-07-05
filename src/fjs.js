@@ -8,13 +8,14 @@ import type {Input, Output} from './types';
 
 import * as babel from 'babel-core';
 import format from './format';
+import getMiddleware from './getMiddleware';
 import getPrinters from './getPrinters';
 import getRules from './getRules';
 import print from './print';
 
 export default function fjs(input: Input): Output {
   const {ast} = babel.transform(input.code);
-  const tokens = print(getPrinters(), ast);
+  const tokens = print(getPrinters(), getMiddleware(), ast);
   const code = format(getRules(), tokens);
   return {code};
 }
