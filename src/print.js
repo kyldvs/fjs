@@ -7,14 +7,14 @@
 import assert from 'assert';
 import {flatten} from './utils';
 
-export default function print(printers, middleware, node) {
+export default function print(printers, middleware, globalContext, node) {
   const path = [node];
   const applyMiddleware = getApplyMiddlewareFn(middleware);
   const printFn = getPrintFn(printers, applyMiddleware, path);
   return flatten(printFn(node));
 }
 
-function getPrintFn(printers, applyMiddleware, originalPath) {
+function getPrintFn(printers, applyMiddleware, globalContext, originalPath) {
   return function printFn(node) {
     if (!node) {
       return [];
@@ -30,8 +30,9 @@ function getPrintFn(printers, applyMiddleware, originalPath) {
     }
     const nextPath = [].concat(originalPath, node);
     const printerContext = {
+      ...globalContext,
       path: nextPath,
-      print: getPrintFn(printers, applyMiddleware, nextPath),
+      print: getPrintFn(printers, applyMiddleware, globalContext, nextPath),
       node,
     };
     const tokens = flatten(printer(printerContext));
