@@ -7,24 +7,38 @@
 const Tokens = {
   // Tokens related to scopes.
   scopeOpen: (kind) => ({
-    type: 'scopeStart',
+    type: 'scopeOpen',
+    scope: true,
+    isBroken: false,
+    unbroken: Tokens.empty(),
+    broken: Tokens.indent(),
     kind,
   }),
 
-  scopeClose: (kind) => ({
+  scopeClose: () => ({
     type: 'scopeClose',
-    kind,
+    scope: true,
+    isBroken: false,
+    unbroken: Tokens.empty(),
+    broken: Tokens.dedent(),
   }),
 
-  scopeSpace: () => ({
-    type: 'scopeSpace',
+  scope: (unbroken, broken) => ({
+    type: 'scope',
+    scope: true,
+    isBroken: false,
+    unbroken,
+    broken,
   }),
 
-  scopeBreak: () => ({
-    type: 'scopeBreak',
-  }),
+  scopeSpaceOrBreak: () => Tokens.scope(Tokens.space(), Tokens.break()),
+  scopeEmptyOrComma: () => Tokens.scope(Tokens.empty(), Tokens.comma()),
 
   // Whitespace tokens.
+  empty: () => ({
+    type: 'empty',
+  }),
+
   space: () => ({
     type: 'space',
   }),
@@ -33,11 +47,23 @@ const Tokens = {
     type: 'break',
   }),
 
+  canBreak: () => ({
+    type: 'canBreak',
+  }),
+
+  indent: () => ({
+    type: 'indent',
+  }),
+
+  dedent: () => ({
+    type: 'dedent',
+  }),
+
   // Punctuation.
   colon: () => ({
     type: 'colon',
   }),
-  
+
   comma: () => ({
     type: 'comma',
   }),

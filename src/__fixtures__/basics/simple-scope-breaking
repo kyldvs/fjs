@@ -1,0 +1,4 @@
+const foo = {
+  meh: 'reasonably long value',
+  meh2: 'this one will make things wrap, hopefully...',
+};

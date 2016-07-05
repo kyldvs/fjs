@@ -7,6 +7,7 @@
 import Tokens from './Tokens';
 
 import comments from './printers/comments';
+import literals from './printers/literals';
 import {map} from './utils';
 
 /**
@@ -15,6 +16,7 @@ import {map} from './utils';
 export default function getPrinters() {
   return {
     ...comments,
+    ...literals,
 
     BinaryExpression: ({print, node}) => [
       print(node.left),
@@ -35,8 +37,6 @@ export default function getPrinters() {
       Tokens.semiColon(),
       Tokens.break(),
     ],
-
-    NumericLiteral: ({node}) => Tokens.string(node.extra.raw),
 
     Program: ({print, node}) => map(node.body, print),
 
@@ -64,12 +64,15 @@ export default function getPrinters() {
 
     ObjectExpression: ({print, node}) => [
       Tokens.string('{'),
-      Tokens.space(),
-      map(node.properties, (property, i) => [
-        i > 0 && [Tokens.comma(), Tokens.space()],
+      Tokens.scopeOpen(),
+      Tokens.scopeSpaceOrBreak(),
+      map(node.properties, (property, i, arr) => [
+        i > 0 && [Tokens.comma(), Tokens.scopeSpaceOrBreak()],
         print(property),
+        i === arr.length - 1 && Tokens.scopeEmptyOrComma(),
       ]),
-      Tokens.space(),
+      Tokens.scopeSpaceOrBreak(),
+      Tokens.scopeClose(),
       Tokens.string('}'),
     ],
 

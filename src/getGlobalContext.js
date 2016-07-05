@@ -11,5 +11,8 @@
  */
 export default function getGlobalContext(node) {
   return {
+    options: {
+      maxLineLength: 80,
+    },
   };
 };

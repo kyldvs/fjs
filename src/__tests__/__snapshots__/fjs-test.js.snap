@@ -1,11 +1,3 @@
-exports[`fjs works 0`] = `
-"var foo, bar;
-var baz;
-let buz = 1;
-const qux = { one: 1, two: 2 };
-"
-`;
-
 exports[`fjs simple-block-comment 0`] = `
 "/*
  * comment
@@ -22,5 +14,26 @@ exports[`fjs simple-comment 0`] = `
 
 exports[`fjs large-numbers 0`] = `
 "100000000000000000000123456789;
+"
+`;
+
+exports[`fjs variable-declarations 0`] = `
+"var foo, bar;
+var baz;
+let buz = 1;
+const qux = { one: 1, two: 2 };
+"
+`;
+
+exports[`fjs works 0`] = `
+"1+1;
+"
+`;
+
+exports[`fjs simple-scope-breaking 0`] = `
+"const foo = {
+  meh: 'reasonably long value',
+  meh2: 'this one will make things wrap, hopefully...',
+};
 "
 `;

@@ -16,12 +16,13 @@ import print from './print';
 
 export default function fjs(input: Input): Output {
   const {ast} = babel.transform(input.code);
+  const globalContext = getGlobalContext(ast);
   const tokens = print(
     getPrinters(),
     getMiddleware(),
-    getGlobalContext(ast),
+    globalContext,
     ast,
   );
-  const code = applyRules(getRules(), tokens);
+  const code = applyRules(getRules(), tokens, globalContext);
   return {code};
 }

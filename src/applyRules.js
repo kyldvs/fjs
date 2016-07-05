@@ -6,9 +6,12 @@
 
 import assert from 'assert';
 
-export default function applyRules(rules, originalTokens) {
+export default function applyRules(rules, originalTokens, context) {
   const finalTokens = rules.reduce(
-    (tokens, rule) => rule(tokens),
+    (tokens, rule) => rule({
+      ...context,
+      tokens,
+    }),
     originalTokens,
   );
 

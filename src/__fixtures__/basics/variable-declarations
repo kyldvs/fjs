@@ -1,0 +1,4 @@
+var foo, bar;
+var baz;
+let buz = 1;
+const qux = { one: 1, two: 2 };
