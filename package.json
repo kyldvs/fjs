@@ -4,7 +4,8 @@
   "description": "format js",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "postinstall": "ln -s -f ../../hooks/pre-commit .git/hooks/pre-commit"
   },
   "repository": {
     "type": "git",
