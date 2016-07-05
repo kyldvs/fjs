@@ -11,6 +11,12 @@ import path from 'path';
 
 const FIXTURES_PATH = path.join(__dirname, '..', '__fixtures__');
 
+// This allows you to easily focus on a single fixture or set of fixtures.
+// When truthy, only fixtures with names that containe the DEBUG string
+// will be run.
+let DEBUG = null;
+// DEBUG = 'works';
+
 function buildFixtures(originalFilePath) {
   let arr = [];
   const filePaths = fs.readdirSync(originalFilePath);
@@ -20,8 +26,13 @@ function buildFixtures(originalFilePath) {
     if (stats.isDirectory()) {
       arr = [].concat(arr, buildFixtures(filePath));
     } else if (stats.isFile()) {
-      const fileName = path.basename(filePath);
-      if (fileName.endsWith('.in')) {
+      if (
+        filePath.endsWith('.in') &&
+        (
+          !DEBUG ||
+          filePath.indexOf(DEBUG) !== -1
+        )
+      ) {
         const testName = fileName.slice(0, -3);
         const inPath = filePath;
         const outPath = filePath.slice(0, -3) + '.out';
