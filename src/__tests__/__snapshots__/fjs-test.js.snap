@@ -1,0 +1,18 @@
+exports[`fjs works 0`] = `
+"1+1;
+"
+`;
+
+exports[`fjs simple-block-comment 0`] = `
+"/*
+ * comment
+ */
+1+1;
+"
+`;
+
+exports[`fjs simple-comment 0`] = `
+"// This is a comment
+1+1;
+"
+`;

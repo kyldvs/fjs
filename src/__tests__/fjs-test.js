@@ -27,36 +27,12 @@ function buildFixtures(originalFilePath) {
       arr = [].concat(arr, buildFixtures(filePath));
     } else if (stats.isFile()) {
       if (
-        filePath.endsWith('.in') &&
-        (
-          !DEBUG ||
-          filePath.indexOf(DEBUG) !== -1
-        )
+        !DEBUG ||
+        filePath.indexOf(DEBUG) !== -1
       ) {
-        const testName = fileName.slice(0, -3);
-        const inPath = filePath;
-        const outPath = filePath.slice(0, -3) + '.out';
-        let inContents = fs.readFileSync(inPath, 'utf8');
-        let outContents = null;
-        try {
-          outContents = fs.readFileSync(outPath, 'utf8');
-        } catch (error) {
-          it(testName, () => {
-            assert(
-              false,
-              'Expected a corresponding output file to match the input ' +
-              'file for "' +
-              testName +
-              '", but "' +
-              outPath +
-              '" does not exist. (or there was some error reading it)',
-            );
-          });
-        }
         arr.push({
-          name: testName,
-          input: inContents,
-          output: outContents,
+          name: fileName,
+          input: fs.readFileSync(filePath, 'utf8'),
         });
       }
     }
@@ -71,7 +47,7 @@ describe('fjs', () => {
       const input = {code: inputCode};
       const output = fjs(input);
       const outputCode = output.code;
-      expect(outputCode).toBe(fixture.output);
+      expect(outputCode).toMatchSnapshot();
     });
   });
 });
