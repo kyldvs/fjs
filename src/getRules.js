@@ -51,6 +51,10 @@ export default function getRules() {
     // Rudementary scope breaking.
     ({tokens, options}) => {
       function shouldReset(token) {
+        if (token.scope) {
+          return shouldReset(token.unbroken);
+        }
+        
         switch (token.type) {
           case 'string':
             return endsWithNewLine(token.value);
