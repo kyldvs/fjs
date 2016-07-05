@@ -10,23 +10,21 @@ import {flatMap} from './utils';
 
 export default function getPrinters() {
   return {
-    BinaryExpression: (print, n) => [
-      print(n.left),
-      Tokens.string(n.operator),
-      print(n.right),
+    BinaryExpression: ({print, node}) => [
+      print(node.left),
+      Tokens.string(node.operator),
+      print(node.right),
     ],
 
-    File: (print, n) => print(n.program),
+    File: ({print, node}) => print(node.program),
 
-    ExpressionStatement: (print, n) => [
-      print(n.expression),
+    ExpressionStatement: ({print, node}) => [
+      print(node.expression),
       Tokens.semiColon(),
     ],
 
-    NumericLiteral: (print, n) => [
-      Tokens.string(n.value),
-    ],
+    NumericLiteral: ({node}) => Tokens.string(node.value),
 
-    Program: (print, n) => flatMap(n.body, print),
+    Program: ({print, node}) => flatMap(node.body, print),
   };
 };
