@@ -20,7 +20,9 @@ export default function getPrinters() {
 
     BinaryExpression: ({print, node}) => [
       print(node.left),
+      Tokens.space(),
       Tokens.string(node.operator),
+      Tokens.space(),
       print(node.right),
     ],
 
@@ -41,6 +43,15 @@ export default function getPrinters() {
     Program: ({print, node}) => map(node.body, print),
 
     // Uncategorized / WIP
+
+    AssignmentExpression: ({print, node}) => [
+      print(node.left),
+      Tokens.space(),
+      Tokens.string('='),
+      Tokens.space(),
+      print(node.right),
+    ],
+
     VariableDeclaration: ({print, node}) => [
       Tokens.string(node.kind),
       Tokens.space(),

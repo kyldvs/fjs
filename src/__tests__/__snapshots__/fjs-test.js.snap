@@ -2,13 +2,13 @@ exports[`fjs simple-block-comment 0`] = `
 "/*
  * comment
  */
-1+1;
+1 + 1;
 "
 `;
 
 exports[`fjs simple-comment 0`] = `
 "// This is a comment
-1+1;
+1 + 1;
 "
 `;
 
@@ -26,7 +26,7 @@ const qux = { one: 1, two: 2 };
 `;
 
 exports[`fjs works 0`] = `
-"1+1;
+"1 + 1;
 "
 `;
 
@@ -35,5 +35,17 @@ exports[`fjs simple-scope-breaking 0`] = `
   meh: 'reasonably long value',
   meh2: 'this one will make things wrap, hopefully...',
 };
+"
+`;
+
+exports[`fjs changes-quotes 0`] = `
+"let x = 'foobar';
+x = 'foobar';
+x = '"';
+x = '"';
+// Note that snapshot testing cannot properly generate a snapshot for these
+// test cases. Please properly escape the snapshot after generation.
+x = '\\\'';
+x = '\\\'';
 "
 `;

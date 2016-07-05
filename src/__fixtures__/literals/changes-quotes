@@ -1,0 +1,8 @@
+let x = 'foobar';
+x = "foobar";
+x = '"';
+x = "\"";
+// Note that snapshot testing cannot properly generate a snapshot for these
+// test cases. Please properly escape the snapshot after generation.
+x = '\'';
+x = "'";
