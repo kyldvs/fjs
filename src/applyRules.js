@@ -6,7 +6,7 @@
 
 import assert from 'assert';
 
-function format(rules, originalTokens) {
+export default function applyRules(rules, originalTokens) {
   const finalTokens = rules.reduce(
     (tokens, rule) => rule(tokens),
     originalTokens,
@@ -30,5 +30,3 @@ function format(rules, originalTokens) {
   // Concatenate them into the final result.
   return finalTokens.map(token => token.value).join('');
 }
-
-export default format;

@@ -6,8 +6,8 @@
 
 import type {Input, Output} from './types';
 
+import applyRules from './applyRules';
 import * as babel from 'babel-core';
-import format from './format';
 import getGlobalContext from './getGlobalContext';
 import getMiddleware from './getMiddleware';
 import getPrinters from './getPrinters';
@@ -22,6 +22,6 @@ export default function fjs(input: Input): Output {
     getGlobalContext(ast),
     ast,
   );
-  const code = format(getRules(), tokens);
+  const code = applyRules(getRules(), tokens);
   return {code};
 }
