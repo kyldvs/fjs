@@ -6,6 +6,7 @@
 
 import Tokens from './Tokens';
 
+import comments from './printers/comments';
 import {flatMap} from './utils';
 
 /**
@@ -13,16 +14,12 @@ import {flatMap} from './utils';
  */
 export default function getPrinters() {
   return {
+    ...comments,
+
     BinaryExpression: ({print, node}) => [
       print(node.left),
       Tokens.string(node.operator),
       print(node.right),
-    ],
-
-    CommentLine: ({node}) => [
-      Tokens.string('//'),
-      Tokens.string(node.value),
-      Tokens.string('\n'),
     ],
 
     File: ({print, node}) => [
