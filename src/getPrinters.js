@@ -8,6 +8,9 @@ import Tokens from './Tokens';
 
 import {flatMap} from './utils';
 
+/**
+ * Printers convert an AST into tokens which may then be formatted.
+ */
 export default function getPrinters() {
   return {
     BinaryExpression: ({print, node}) => [
