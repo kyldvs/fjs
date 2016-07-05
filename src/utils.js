@@ -5,10 +5,10 @@
 'use strict';
 
 /**
- * Maps over the given array and then flattens by one level.
+ * Maps over the given array, checks for null first.
  */
-export function flatMap(arr, fn) {
-  return Array.prototype.concat.apply([], arr.map(fn));
+export function map(arr, fn) {
+  return arr && arr.map(fn);
 }
 
 /**

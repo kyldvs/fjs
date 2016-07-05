@@ -19,10 +19,33 @@ export default function getRules() {
 
     // TODO: Add formatting rules here.
 
+    // Remove extra breaks. Simplified for now, we need to traverse other
+    // non printable characters to remove extra breaks in the future.
+    tokens => tokens.filter((token, i) => (
+      token.type !== 'break' ||
+      (
+        i > 0 &&
+        tokens[i - 1].type !== 'break'
+      )
+    )),
+
+    // Map the final tokens back to strings.
     tokens => tokens.map(token => {
       switch (token.type) {
+        case 'break':
+          return Tokens.string('\n');
+
+        case 'colon':
+          return Tokens.string(':');
+
+        case 'comma':
+          return Tokens.string(',');
+
         case 'semiColon':
           return Tokens.string(';');
+
+        case 'space':
+          return Tokens.string(' ');
 
         case 'string':
           return token;

@@ -21,7 +21,8 @@ the same output should be printed regardless of any existing formatting.
 
 __Exceptions:__
 
-1. (None yet.)
+1. Comments: When printing comments new lines before and after the comments are
+maintained according to the original formatting.
 
 ## constant AST
 
