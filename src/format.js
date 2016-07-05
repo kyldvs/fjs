@@ -4,23 +4,31 @@
 
 'use strict';
 
-import invariant from 'assert';
+import assert from 'assert';
 
-function format(rules, tokens) {
-  return tokens
-    .filter(x => !!x)
-    .map(token => {
-      switch (token.type) {
-        case 'line':
-        case 'string':
-          return token.value;
+function format(rules, originalTokens) {
+  const finalTokens = rules.reduce(
+    (tokens, rule) => rule(tokens),
+    originalTokens,
+  );
 
-        default:
-          invariant(false, 'Unhandled token type: ' + token.type);
-      }
-    })
-    .filter(x => !!x)
-    .join('');
+  // The final tokens must all be strings.
+  finalTokens.forEach(token => {
+    assert(
+      token,
+      'A final token is null. After running all rules all tokens must ' +
+      'be string tokens.'
+    );
+    assert(
+      token.type === 'string',
+      'A final token has the type: "' +
+      token.type +
+      '". After running all rules all tokens must be string tokens.'
+    );
+  });
+
+  // Concatenate them into the final result.
+  return finalTokens.map(token => token.value).join('');
 }
 
 export default format;
