@@ -35,7 +35,7 @@ export default function getPrinters() {
       Tokens.semiColon(),
     ],
 
-    NumericLiteral: ({node}) => Tokens.string(node.value),
+    NumericLiteral: ({node}) => Tokens.string(node.extra.raw),
 
     Program: ({print, node}) => flatMap(node.body, print),
   };
