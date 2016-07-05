@@ -33,6 +33,7 @@ export default function getPrinters() {
     ExpressionStatement: ({print, node}) => [
       print(node.expression),
       Tokens.semiColon(),
+      Tokens.break(),
     ],
 
     NumericLiteral: ({node}) => Tokens.string(node.extra.raw),
