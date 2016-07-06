@@ -7,8 +7,12 @@
 import Tokens from '../Tokens';
 
 export default {
-  NumericLiteral: ({node}) => Tokens.string(node.extra.raw),
   StringLiteral: ({node}) => Tokens.string(escapeStringLiteral(node.value)),
+  NumericLiteral: ({node}) => Tokens.string(node.extra.raw),
+  // NullLiteral: ({node, print}) => [],
+  // BooleanLiteral: ({node, print}) => [],
+  // RegExpLiteral: ({node, print}) => [],
+  // TemplateLiteral: ({node, print}) => [],
 };
 
 function escapeStringLiteral(value) {
