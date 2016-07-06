@@ -1,3 +1,18 @@
+exports[`fjs changes-quotes 0`] = `
+"let x = 'foobar';
+x = 'foobar';
+x = '\"';
+x = '\"';
+x = '\\'';
+x = '\\'';
+"
+`;
+
+exports[`fjs large-numbers 0`] = `
+"100000000000000000000123456789;
+"
+`;
+
 exports[`fjs simple-block-comment 0`] = `
 "/*
  * comment
@@ -12,8 +27,16 @@ exports[`fjs simple-comment 0`] = `
 "
 `;
 
-exports[`fjs large-numbers 0`] = `
-"100000000000000000000123456789;
+exports[`fjs simple-scope-breaking 0`] = `
+"const foo = {
+  meh: 'reasonably long value',
+  meh2: 'this one will make things wrap, hopefully...',
+};
+"
+`;
+
+exports[`fjs string-escapes 0`] = `
+"let x = '\\\\\\\\\\\\\\'';
 "
 `;
 
@@ -27,34 +50,5 @@ const qux = { one: 1, two: 2 };
 
 exports[`fjs works 0`] = `
 "1 + 1;
-"
-`;
-
-exports[`fjs simple-scope-breaking 0`] = `
-"const foo = {
-  meh: 'reasonably long value',
-  meh2: 'this one will make things wrap, hopefully...',
-};
-"
-`;
-
-exports[`fjs changes-quotes 0`] = `
-"let x = 'foobar';
-x = 'foobar';
-x = '"';
-x = '"';
-// Note that snapshot testing cannot properly generate a snapshot for these
-// test cases. They are:
-// x = single quote, escape, single quote, single quote
-// x = double quote, single quote, double quote
-broken;
-"
-`;
-
-exports[`fjs string-escapes 0`] = `
-"// Note that snapshot testing cannot properly generate a snapshot for these
-// test cases. They are:
-// single quote, escape x 7, single quote, single quote
-broken;
 "
 `;
