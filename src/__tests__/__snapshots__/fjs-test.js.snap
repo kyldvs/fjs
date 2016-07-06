@@ -49,3 +49,10 @@ x = '\\\'';
 x = '\\\'';
 "
 `;
+
+exports[`fjs string-escapes 0`] = `
+"// Note that snapshot testing cannot properly generate a snapshot for these
+// test cases. Please properly escape the snapshot after generation.
+let x = '\\\\\\\\\\\\\\\'';
+"
+`;
