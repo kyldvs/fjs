@@ -8,7 +8,6 @@ import Tokens from './Tokens';
 
 import comments from './printers/comments';
 import expressions from './printers/expressions';
-import importExport from './printers/importExport';
 import literals from './printers/literals';
 import misc from './printers/misc';
 import statements from './printers/statements';
@@ -16,13 +15,13 @@ import statements from './printers/statements';
 /**
  * Printers convert an AST into tokens which may then be formatted.
  */
-export default function getPrinters() {
+export default function getPrinters(x, y, z) {
   return {
     ...comments,
     ...expressions,
-    ...importExport,
     ...literals,
     ...misc,
     ...statements,
+    ...thisissomethingreallylongthatwillbreak,
   };
 };

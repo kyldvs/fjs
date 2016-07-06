@@ -6,7 +6,7 @@
 
 import Tokens from '../Tokens';
 
-import {map} from '../utils';
+import {printStatements} from '../utils';
 
 export default {
   File: ({print, node}) => [
@@ -17,7 +17,13 @@ export default {
     Tokens.break(),
   ],
 
-  Program: ({print, node}) => map(node.body, print),
+  Program: ({print, node}) => [
+    node.directives.length && [
+      printStatements(node.directives, print),
+      Tokens.string('\n'),
+    ],
+    printStatements(node.body, print),
+  ],
 
   // Uncategorized / WIP
 
@@ -31,6 +37,11 @@ export default {
     ],
   ],
 
+  SpreadProperty: ({node, print}) => [
+    Tokens.string('...'),
+    print(node.argument),
+  ],
+
   ObjectProperty: ({print, node}) => [
     print(node.key),
     Tokens.colon(),
@@ -39,4 +50,10 @@ export default {
   ],
 
   Identifier: ({node}) => Tokens.string(node.name),
+
+  Directive: ({node, print}) => [
+    print(node.value),
+    Tokens.semiColon(),
+    Tokens.break(),
+  ],
 };

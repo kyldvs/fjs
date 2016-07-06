@@ -7,6 +7,7 @@
 import Tokens from '../Tokens';
 
 export default {
+  DirectiveLiteral: ({node}) => Tokens.string(escapeStringLiteral(node.value)),
   StringLiteral: ({node}) => Tokens.string(escapeStringLiteral(node.value)),
   NumericLiteral: ({node}) => Tokens.string(node.extra.raw),
   // NullLiteral: ({node, print}) => [],

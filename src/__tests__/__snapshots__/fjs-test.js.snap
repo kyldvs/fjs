@@ -8,6 +8,44 @@ x = '\\'';
 "
 `;
 
+exports[`fjs code_01 0`] = `
+"/**
+ * Copyright 2004-present Facebook. All Rights Reserved.
+ */
+
+'use strict';
+
+import Tokens from './Tokens';
+
+import comments from './printers/comments';
+import expressions from './printers/expressions';
+import literals from './printers/literals';
+import misc from './printers/misc';
+import statements from './printers/statements';
+
+/**
+ * Printers convert an AST into tokens which may then be formatted.
+ */
+export default function getPrinters(x, y, z) {
+  return {
+    ...comments,
+    ...expressions,
+    ...literals,
+    ...misc,
+    ...statements,
+    ...thisissomethingreallylongthatwillbreak,
+  };
+};
+"
+`;
+
+exports[`fjs code_02 0`] = `
+"x;
+// There should be no extra new lines in between these statements.
+x;
+"
+`;
+
 exports[`fjs large-numbers 0`] = `
 "100000000000000000000123456789;
 "

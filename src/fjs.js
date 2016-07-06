@@ -15,7 +15,11 @@ import getRules from './getRules';
 import print from './print';
 
 export default function fjs(input: Input): Output {
-  const {ast} = babel.transform(input.code);
+  const {ast} = babel.transform(input.code, {
+    plugins: [
+      'syntax-object-rest-spread',
+    ],
+  });
   const globalContext = getGlobalContext(ast);
   const tokens = print(
     getPrinters(),

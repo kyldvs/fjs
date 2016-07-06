@@ -6,10 +6,19 @@
 
 import Tokens from '../Tokens';
 
-import {map} from '../utils';
+import {map, printList, printStatements} from '../utils';
 
 export default {
-  // BlockStatement: ({node, print}) => [],
+  BlockStatement: ({node, print}) => [
+    Tokens.string('{'),
+    Tokens.break(),
+    Tokens.indent(),
+    printStatements(node.body, print),
+    Tokens.break(),
+    Tokens.dedent(),
+    Tokens.string('}'),
+  ],
+
   // BreakStatement: ({node, print}) => [],
   // ClassDeclaration: ({node, print}) => [],
   // ContinueStatement: ({node, print}) => [],
@@ -21,10 +30,8 @@ export default {
   // DeclareTypeAlias: ({node, print}) => [],
   // DeclareVariable: ({node, print}) => [],
   // DoWhileStatement: ({node, print}) => [],
-  // EmptyStatement: ({node, print}) => [],
-  // ExportAllDeclaration: ({node, print}) => [],
-  // ExportDefaultDeclaration: ({node, print}) => [],
-  // ExportNamedDeclaration: ({node, print}) => [],
+
+  EmptyStatement: ({node, print}) => Tokens.semiColon(),
 
   ExpressionStatement: ({print, node}) => [
     print(node.expression),
@@ -35,12 +42,32 @@ export default {
   // ForInStatement: ({node, print}) => [],
   // ForOfStatement: ({node, print}) => [],
   // ForStatement: ({node, print}) => [],
-  // FunctionDeclaration: ({node, print}) => [],
+
+  FunctionDeclaration: ({node, print}) => [
+    Tokens.string('function'),
+    Tokens.space(),
+    print(node.id),
+    Tokens.string('('),
+    printList(node.params, print),
+    Tokens.string(')'),
+    Tokens.space(),
+    print(node.body),
+  ],
+
   // IfStatement: ({node, print}) => [],
-  // ImportDeclaration: ({node, print}) => [],
   // InterfaceDeclaration: ({node, print}) => [],
   // LabeledStatement: ({node, print}) => [],
-  // ReturnStatement: ({node, print}) => [],
+
+  ReturnStatement: ({node, print}) => [
+    Tokens.string('return'),
+    node.argument != null && [
+      Tokens.space(),
+      print(node.argument),
+    ],
+    Tokens.semiColon(),
+    Tokens.break(),
+  ],
+
   // SwitchStatement: ({node, print}) => [],
   // ThrowStatement: ({node, print}) => [],
   // TryStatement: ({node, print}) => [],
