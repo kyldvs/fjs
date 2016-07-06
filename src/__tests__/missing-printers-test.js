@@ -8,11 +8,19 @@ import {VISITOR_KEYS} from 'babel-types';
 
 import getPrinters from '../getPrinters';
 
+/**
+ * These are printers for nodes that aren't really part of the AST. At least,
+ * babel doesn't include them in VISITOR_KEYS.
+ */
 const EXTRA_PRINTERS = new Set([
   'CommentBlock',
   'CommentLine',
 ]);
 
+/**
+ * These are the nodes we have not yet implemented. As printers are added for
+ * these the test will throw an error if they are not removed here.
+ */
 const UNIMPLEMENTED = new Set([
   'AnyTypeAnnotation',
   'ArrayExpression',
