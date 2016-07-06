@@ -1,3 +1,4 @@
 // Note that snapshot testing cannot properly generate a snapshot for these
-// test cases. Please properly escape the snapshot after generation.
-let x = '\\\\\\\'';
+// test cases. They are:
+// single quote, escape x 7, single quote, single quote
+broken;

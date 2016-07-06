@@ -3,6 +3,7 @@ x = "foobar";
 x = '"';
 x = "\"";
 // Note that snapshot testing cannot properly generate a snapshot for these
-// test cases. Please properly escape the snapshot after generation.
-x = '\'';
-x = "'";
+// test cases. They are:
+// x = single quote, escape, single quote, single quote
+// x = double quote, single quote, double quote
+broken;
