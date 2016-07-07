@@ -1,0 +1,3 @@
+foo ? bar : baz;
+this_is_a_long_identifier ? [with_some_array_elements, that_will_break] : [here, is, another, array_that_has_things];
+this_is_a_long_identifier ? [this_array_is_also_really_long, so_it_will_also_need_to_break, independently_of_whether_or_not_the_conditional, needs_to_break] : [here, is, another, array_that_has_things, it_might_not, need_to_break];

@@ -154,6 +154,9 @@ export default function getRules() {
         case 'space':
           return Tokens.string(' ');
 
+        case 'questionMark':
+          return Tokens.string('?');
+
         case 'indent':
         case 'dedent':
         case 'string':
@@ -238,6 +241,7 @@ function measure(token) {
     case 'period':
     case 'semiColon':
     case 'space':
+    case 'questionMark':
       return 1;
 
     default:

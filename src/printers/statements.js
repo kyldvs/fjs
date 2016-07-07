@@ -21,7 +21,16 @@ export default {
     Tokens.string('}'),
   ],
 
-  // BreakStatement: ({node, print}) => [],
+  BreakStatement: ({node, print}) => [
+    Tokens.string('break'),
+    node.label && [
+      Tokens.space(),
+      print(node.label),
+    ],
+    Tokens.semiColon(),
+    Tokens.break(),
+  ],
+
   // ContinueStatement: ({node, print}) => [],
   // DebuggerStatement: ({node, print}) => [],
   // DeclareClass: ({node, print}) => [],

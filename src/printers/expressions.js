@@ -9,7 +9,12 @@ import Tokens from '../Tokens';
 import {map, printList} from '../utils';
 
 export default {
-  // ArrayExpression: ({node, print}) => [],
+  ArrayExpression: ({node, print}) => [
+    Tokens.string('['),
+    printList(node.elements, print),
+    Tokens.string(']'),
+  ],
+
   // ArrowFunctionExpression: ({node, print}) => [],
 
   AssignmentExpression: ({node, print}) => [
@@ -40,7 +45,21 @@ export default {
   ],
 
   // ClassExpression: ({node, print}) => [],
-  // ConditionalExpression: ({node, print}) => [],
+
+  ConditionalExpression: ({node, print}) => [
+    print(node.test),
+    Tokens.scopeOpen('ternary'),
+    Tokens.scopeSpaceOrBreak(),
+    Tokens.questionMark(),
+    Tokens.space(),
+    print(node.consequent),
+    Tokens.scopeSpaceOrBreak(),
+    Tokens.colon(),
+    Tokens.space(),
+    print(node.alternate),
+    Tokens.scopeClose(),
+  ],
+
   // DoExpression: ({node, print}) => [],
   // FunctionExpression: ({node, print}) => [],
 

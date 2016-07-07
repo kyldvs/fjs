@@ -23,7 +23,6 @@ const EXTRA_PRINTERS = new Set([
  */
 const UNIMPLEMENTED = new Set([
   'AnyTypeAnnotation',
-  'ArrayExpression',
   'ArrayPattern',
   'ArrayTypeAnnotation',
   'ArrowFunctionExpression',
@@ -31,11 +30,9 @@ const UNIMPLEMENTED = new Set([
   'AwaitExpression',
   'BindExpression',
   'BooleanLiteralTypeAnnotation',
-  'BreakStatement',
   'CatchClause',
   'ClassExpression',
   'ClassImplements',
-  'ConditionalExpression',
   'ContinueStatement',
   'DebuggerStatement',
   'DeclareClass',

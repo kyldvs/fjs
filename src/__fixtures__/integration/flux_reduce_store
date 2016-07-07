@@ -43,57 +43,40 @@ class FluxReduceStore<TState> extends FluxStore {
 
   _state: TState;
 
-  constructor(dispatcher: Dispatcher) {
-    super(dispatcher);
-    this._state = this.getInitialState();
-  }
+  constructor(dispatcher: Dispatcher) { super(dispatcher); this._state = this.getInitialState(); }
 
   /**
    * Getter that exposes the entire state of this store. If your state is not
    * immutable you should override this and not expose _state directly.
    */
-  getState(): TState {
-    return this._state;
-  }
+  getState(): TState { return this._state; }
 
   /**
    * Constructs the initial state for this store. This is called once during
    * construction of the store.
    */
-  getInitialState(): TState {
-    return abstractMethod('FluxReduceStore', 'getInitialState');
-  }
+  getInitialState(): TState { return abstractMethod('FluxReduceStore', 'getInitialState'); }
 
   /**
    * Used to reduce a stream of actions coming from the dispatcher into a
    * single state object.
    */
-  reduce(state: TState, action: Object): TState {
-    return abstractMethod('FluxReduceStore', 'reduce');
-  }
+  reduce(state: TState, action: Object): TState { return abstractMethod('FluxReduceStore', 'reduce'); }
 
   /**
    * Checks if two versions of state are the same. You do not need to override
    * this if your state is immutable.
    */
-  areEqual(one: TState, two: TState): boolean {
-    return one === two;
-  }
+  areEqual(one: TState, two: TState): boolean { return one === two; }
 
   __invokeOnDispatch(action: Object): void {
     this.__changed = false;
 
     // Reduce the stream of incoming actions to state, update when necessary.
-    const startingState = this._state;
-    const endingState = this.reduce(startingState, action);
+    const startingState = this._state; const endingState = this.reduce(startingState, action);
 
     // This means your ending state should never be undefined.
-    invariant(
-      endingState !== undefined,
-      '%s returned undefined from reduce(...), did you forget to return ' +
-      'state in the default case? (use null if this was intentional)',
-      this.constructor.name,
-    );
+    invariant(endingState !== undefined, '%s returned undefined from reduce(...), did you forget to return ' + 'state in the default case? (use null if this was intentional)', this.constructor.name);
 
     if (!this.areEqual(startingState, endingState)) {
       this._state = endingState;
@@ -104,9 +87,7 @@ class FluxReduceStore<TState> extends FluxStore {
       this.__emitChange();
     }
 
-    if (this.__changed) {
-      this.__emitter.emit(this.__changeEvent);
-    }
+    if (this.__changed) { this.__emitter.emit(this.__changeEvent); }
   }
 }
 

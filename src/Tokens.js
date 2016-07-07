@@ -74,6 +74,10 @@ const Tokens = {
     type: 'period',
   }),
 
+  questionMark: () => ({
+    type: 'questionMark',
+  }),
+
   // Final string token. These will be printed exactly in the result.
   string: (value) => ({
     type: 'string',
