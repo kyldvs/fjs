@@ -50,96 +50,6 @@ export default function getRules() {
 
     // Rudementary scope breaking.
     ({tokens, options}) => {
-      function endOfLine(token) {
-        if (token.scope) {
-          return endOfLine(token.unbroken);
-        }
-
-        switch (token.type) {
-          case 'string':
-            return endsWithNewLine(token.value);
-
-          case 'break':
-            return true;
-
-          default:
-            return false;
-        }
-      }
-
-      function measure(token) {
-        // Measure the unbroken side of a scope token.
-        if (token.scope) {
-          return measure(token.unbroken);
-        }
-
-        switch (token.type) {
-          case 'string':
-            return token.value.length;
-
-          case 'colon':
-          case 'comma':
-          case 'period':
-          case 'semiColon':
-          case 'space':
-            return 1;
-
-          default:
-            return 0;
-        }
-      }
-
-      function breakScopeID(tokens, scopeID) {
-        return tokens.map(token =>
-          token.scopeID === scopeID
-            ? token.broken
-            : token
-        );
-      }
-
-      /**
-       * This will compute the lines based on token indices in the given array.
-       *
-       * Each line is: [token index inclusive, token index exclusive)
-       */
-      function computeLines(tokens) {
-        let lines = [];
-        for (let i = 0; i < tokens.length; i++) {
-          if (endOfLine(tokens[i]) || (i === tokens.length - 1)) {
-            if (lines.length === 0) {
-              lines.push([0, i + 1]);
-            } else {
-              lines.push([lines[lines.length - 1][1], i + 1]);
-            }
-          }
-        }
-        return lines;
-      }
-
-      /**
-       * This computes the indentation of each line assuming no scopes break.
-       */
-      function computeIndents(tokens, lines) {
-        let indent = 0;
-        return lines.map(line => {
-          // Only capture the indent once we see a printable character.
-          let capturedIndent = -1;
-          for (let i = line[0]; i < line[1]; i++) {
-            const token = tokens[i].scope ? tokens[i].unbroken : tokens[i];
-            if (token.type === 'indent') {
-              indent++;
-            } else if (token.type === 'dedent') {
-              indent--;
-            }
-
-            if (measure(token) > 0 && capturedIndent < 0) {
-              capturedIndent = indent;
-            }
-          }
-          return capturedIndent < 0 ? indent : capturedIndent;
-        });
-      }
-
       // We will keep trying to break lines until they stop breaking.
       let someLinesBroke = true;
       while (someLinesBroke) {
@@ -293,3 +203,95 @@ export default function getRules() {
     ({tokens}) => tokens.filter(token => !!token),
   ];
 };
+
+////////// Some private helpers used for scope breaking. //////////
+
+function endOfLine(token) {
+  if (token.scope) {
+    return endOfLine(token.unbroken);
+  }
+
+  switch (token.type) {
+    case 'string':
+      return endsWithNewLine(token.value);
+
+    case 'break':
+      return true;
+
+    default:
+      return false;
+  }
+}
+
+function measure(token) {
+  // Measure the unbroken side of a scope token.
+  if (token.scope) {
+    return measure(token.unbroken);
+  }
+
+  switch (token.type) {
+    case 'string':
+      return token.value.length;
+
+    case 'colon':
+    case 'comma':
+    case 'period':
+    case 'semiColon':
+    case 'space':
+      return 1;
+
+    default:
+      return 0;
+  }
+}
+
+function breakScopeID(tokens, scopeID) {
+  return tokens.map(token =>
+    token.scopeID === scopeID
+      ? token.broken
+      : token
+  );
+}
+
+/**
+ * This will compute the lines based on token indices in the given array.
+ *
+ * Each line is: [token index inclusive, token index exclusive)
+ */
+function computeLines(tokens) {
+  let lines = [];
+  for (let i = 0; i < tokens.length; i++) {
+    if (endOfLine(tokens[i]) || (i === tokens.length - 1)) {
+      if (lines.length === 0) {
+        lines.push([0, i + 1]);
+      } else {
+        lines.push([lines[lines.length - 1][1], i + 1]);
+      }
+    }
+  }
+  return lines;
+}
+
+/**
+ * This computes the indentation of each line assuming no scopes break.
+ */
+function computeIndents(tokens, lines) {
+  let indent = 0;
+  return lines.map(line => {
+    // Only capture the indent once we see a printable character.
+    let capturedIndent = -1;
+    for (let i = line[0]; i < line[1]; i++) {
+      const token = tokens[i].scope ? tokens[i].unbroken : tokens[i];
+      if (token.type === 'indent') {
+        indent++;
+      } else if (token.type === 'dedent') {
+        indent--;
+      }
+
+      if (measure(token) > 0 && capturedIndent < 0) {
+        capturedIndent = indent;
+      }
+    }
+    return capturedIndent < 0 ? indent : capturedIndent;
+  });
+}
