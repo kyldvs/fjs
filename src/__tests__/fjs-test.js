@@ -15,7 +15,7 @@ const FIXTURES_PATH = path.join(__dirname, '..', '__fixtures__');
 // When truthy, only fixtures with names that containe the DEBUG string
 // will be run.
 let DEBUG = null;
-// DEBUG = 'reduce';
+// DEBUG = 'logical';
 
 function buildFixtures(originalFilePath) {
   let arr = [];

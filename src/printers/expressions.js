@@ -70,7 +70,61 @@ export default {
 
   // JSXEmptyExpression: ({node, print}) => [],
   // JSXMemberExpression: ({node, print}) => [],
-  // LogicalExpression: ({node, print}) => [],
+
+  LogicalExpression: ({node, path, print}) => {
+    const parenthesized = node.extra && node.extra.parenthesized;
+
+    let hasParentLogicalExpression = false;
+
+    // Note: We don't check the last node, it's always a LogicalExpression since
+    // that's the node we are printing.
+    for (let i = 0; i < path.length - 1; i++) {
+      if (path[i] && path[i].type === 'LogicalExpression') {
+        hasParentLogicalExpression = true;
+        break;
+      }
+    }
+
+    const createScope = !hasParentLogicalExpression;
+
+    // TODO: This part is basically untested... make some logical chains inside
+    // of ifs and function calls, etc.
+
+    // This determines if while breaking the scope we need to add parens or not.
+    // For example a naked series of logical expressions will need parenthesis
+    // added to them.
+    const createScopeParens = createScope && !path.some(pn => pn && (
+      // TODO: Need to verify the logical expression are in the correct part
+      // of the IfStatement/CallExpression etc. For example if it's in the test
+      // of the IfStatement it is wrapped in parenthesis, but the consequent is
+      // not wrapped and should not exclude scope creation.
+      pn.type === 'CallExpression' ||
+      pn.type === 'IfStatement'
+    ));
+
+    return [
+      parenthesized && Tokens.string('('),
+      parenthesized && Tokens.scopeOpen('logical_expressions'),
+      createScope && Tokens.scopeOpenNoIndent('logical_expressions'),
+      createScopeParens && Tokens.scopeEmptyOrOpenParen(),
+      createScope && Tokens.scopeEmptyOrIndent(),
+
+      Tokens.scopeEmptyOrBreak(),
+      print(node.left),
+      Tokens.space(),
+      Tokens.string(node.operator),
+      Tokens.scopeSpaceOrBreak(),
+      print(node.right),
+
+      createScope && Tokens.scopeEmptyOrBreak(),
+      createScope && Tokens.scopeEmptyOrDedent(),
+      createScopeParens && Tokens.scopeEmptyOrCloseParen(),
+      createScope && Tokens.scopeCloseNoDedent(),
+      parenthesized && Tokens.scopeEmptyOrBreak(),
+      parenthesized && Tokens.scopeClose(),
+      parenthesized && Tokens.string(')'),
+    ];
+  },
 
   MemberExpression: ({node, print}) => [
     print(node.object),

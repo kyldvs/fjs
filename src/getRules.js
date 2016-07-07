@@ -9,6 +9,12 @@ import Tokens from './Tokens';
 import assert from 'assert';
 import {endsWithNewLine, hasNonWhitespace} from './regex';
 
+// Lower is more likely to break.
+const SCOPE_PRIORITY = new Map([
+  ['ternary', 0],
+  ['logical_expressions', 1],
+]);
+
 /**
  * Rules convert an array of tokens into another array of tokens. Rules
  * are run in the particular order they are defined. Once all rules are
@@ -69,11 +75,11 @@ export default function getRules() {
 
           let alreadyHasBrokenScope = false;
           let spaceUsedByLine = indents[i] * 2;
-          let scopes = [];
+          let scopeIndices = [];
 
           for (let j = start; j < end; j++) {
             if (tokens[j].scope) {
-              scopes.push(tokens[j].scopeID);
+              scopeIndices.push(j);
               if (scopesToBreak.has(tokens[j].scopeID)) {
                 alreadyHasBrokenScope = true;
                 break;
@@ -99,8 +105,25 @@ export default function getRules() {
 
           // Now we need to find a scope to break in this line. For now we
           // naively select the first scope we see.
-          if (spaceUsedByLine > options.maxLineLength && scopes.length > 0) {
-            scopesToBreak.add(scopes[0]);
+          if (
+            spaceUsedByLine > options.maxLineLength &&
+            scopeIndices.length > 0
+          ) {
+            let min = 0;
+            let minKind = tokens[scopeIndices[min]].kind;
+            for (let j = 1; j < scopeIndices.length; j++) {
+              const kind = tokens[scopeIndices[j]].kind;
+              if (SCOPE_PRIORITY.has(kind) && SCOPE_PRIORITY.has(minKind)) {
+                if (SCOPE_PRIORITY.get(kind) < SCOPE_PRIORITY.get(minKind)) {
+                  min = j;
+                  minKind = kind;
+                }
+              } else if (SCOPE_PRIORITY.has(kind)) {
+                min = j;
+                minKind = kind;
+              }
+            }
+            scopesToBreak.add(tokens[scopeIndices[min]].scopeID);
           }
         }
 
@@ -122,13 +145,22 @@ export default function getRules() {
 
     // Remove extra breaks. Simplified for now, we need to traverse other
     // non printable characters to remove extra breaks in the future.
-    ({tokens}) => tokens.filter((token, i) => (
-      token.type !== 'break' ||
-      (
-        i > 0 &&
-        tokens[i - 1].type !== 'break'
-      )
-    )),
+    ({tokens}) => {
+      let seenBreak = false;
+      return tokens.filter(token => {
+        if (token.type === 'break') {
+          if (seenBreak) {
+            return false;
+          } else {
+            seenBreak = true;
+            return true;
+          }
+        } else if (measure(token) > 0) {
+          seenBreak = false;
+        }
+        return true;
+      });
+    },
 
     // Map the final tokens back to strings and indentation.
     ({tokens}) => tokens.map(token => {

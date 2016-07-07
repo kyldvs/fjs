@@ -14,11 +14,26 @@ const Tokens = {
     kind,
   }),
 
+  scopeOpenNoIndent: (kind) => ({
+    type: 'scopeOpen',
+    scope: true,
+    unbroken: Tokens.empty(),
+    broken: Tokens.empty(),
+    kind,
+  }),
+
   scopeClose: () => ({
     type: 'scopeClose',
     scope: true,
     unbroken: Tokens.empty(),
     broken: Tokens.dedent(),
+  }),
+
+  scopeCloseNoDedent: () => ({
+    type: 'scopeClose',
+    scope: true,
+    unbroken: Tokens.empty(),
+    broken: Tokens.empty(),
   }),
 
   scope: (unbroken, broken) => ({
@@ -31,6 +46,13 @@ const Tokens = {
   scopeEmptyOrBreak: () => Tokens.scope(Tokens.empty(), Tokens.break()),
   scopeEmptyOrComma: () => Tokens.scope(Tokens.empty(), Tokens.comma()),
   scopeSpaceOrBreak: () => Tokens.scope(Tokens.space(), Tokens.break()),
+  scopeEmptyOrOpenParen: () => Tokens.scope(Tokens.empty(), Tokens.string('(')),
+  scopeEmptyOrCloseParen: () => Tokens.scope(
+    Tokens.empty(),
+    Tokens.string(')'),
+  ),
+  scopeEmptyOrIndent: () => Tokens.scope(Tokens.empty(), Tokens.indent()),
+  scopeEmptyOrDedent: () => Tokens.scope(Tokens.empty(), Tokens.dedent()),
 
   // Whitespace tokens.
   empty: () => ({

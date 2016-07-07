@@ -31,8 +31,22 @@ export default {
     Tokens.break(),
   ],
 
-  // ContinueStatement: ({node, print}) => [],
-  // DebuggerStatement: ({node, print}) => [],
+  ContinueStatement: ({node, print}) => [
+    Tokens.string('continue'),
+    node.label && [
+      Tokens.space(),
+      print(node.label),
+    ],
+    Tokens.semiColon(),
+    Tokens.break(),
+  ],
+
+  DebuggerStatement: ({node, print}) => [
+    Tokens.string('debugger'),
+    Tokens.semiColon(),
+    Tokens.break(),
+  ],
+
   // DeclareClass: ({node, print}) => [],
   // DeclareFunction: ({node, print}) => [],
   // DeclareInterface: ({node, print}) => [],
@@ -81,7 +95,13 @@ export default {
   ],
 
   // InterfaceDeclaration: ({node, print}) => [],
-  // LabeledStatement: ({node, print}) => [],
+
+  LabeledStatement: ({node, print}) => [
+    print(node.label),
+    Tokens.colon(),
+    Tokens.space(),
+    print(node.body),
+  ],
 
   ReturnStatement: ({node, print}) => [
     Tokens.string('return'),

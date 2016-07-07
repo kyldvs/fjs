@@ -5,15 +5,6 @@ declare class BabelNodeCatchClause extends BabelNode {
   body: BabelNodeBlockStatement;
 }
 
-declare class BabelNodeContinueStatement extends BabelNode {
-  type: "ContinueStatement";
-  label?: ?BabelNodeIdentifier;
-}
-
-declare class BabelNodeDebuggerStatement extends BabelNode {
-  type: "DebuggerStatement";
-}
-
 declare class BabelNodeDoWhileStatement extends BabelNode {
   type: "DoWhileStatement";
   test: BabelNodeExpression;
@@ -62,18 +53,6 @@ declare class BabelNodeIfStatement extends BabelNode {
   test: BabelNodeExpression;
   consequent: BabelNodeStatement;
   alternate?: ?BabelNodeStatement;
-}
-
-declare class BabelNodeLabeledStatement extends BabelNode {
-  type: "LabeledStatement";
-  label: BabelNodeIdentifier;
-  body: BabelNodeStatement;
-}
-
-declare class BabelNodeRegExpLiteral extends BabelNode {
-  type: "RegExpLiteral";
-  pattern: string;
-  flags?: string;
 }
 
 declare class BabelNodeLogicalExpression extends BabelNode {

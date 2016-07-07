@@ -7,8 +7,14 @@ jest.autoMockOff();
 import Tokens from '../Tokens';
 
 const IGNORE = new Set([
+  'scopeCloseNoDedent',
   'scopeEmptyOrBreak',
+  'scopeEmptyOrCloseParen',
   'scopeEmptyOrComma',
+  'scopeEmptyOrDedent',
+  'scopeEmptyOrIndent',
+  'scopeEmptyOrOpenParen',
+  'scopeOpenNoIndent',
   'scopeSpaceOrBreak',
 ]);
 
