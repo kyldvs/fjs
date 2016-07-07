@@ -7,8 +7,9 @@ jest.autoMockOff();
 import Tokens from '../Tokens';
 
 const IGNORE = new Set([
-  'scopeSpaceOrBreak',
+  'scopeEmptyOrBreak',
   'scopeEmptyOrComma',
+  'scopeSpaceOrBreak',
 ]);
 
 describe('tokens-spelling', () => {

@@ -9,7 +9,6 @@ const Tokens = {
   scopeOpen: (kind) => ({
     type: 'scopeOpen',
     scope: true,
-    isBroken: false,
     unbroken: Tokens.empty(),
     broken: Tokens.indent(),
     kind,
@@ -18,7 +17,6 @@ const Tokens = {
   scopeClose: () => ({
     type: 'scopeClose',
     scope: true,
-    isBroken: false,
     unbroken: Tokens.empty(),
     broken: Tokens.dedent(),
   }),
@@ -26,13 +24,13 @@ const Tokens = {
   scope: (unbroken, broken) => ({
     type: 'scope',
     scope: true,
-    isBroken: false,
     unbroken,
     broken,
   }),
 
-  scopeSpaceOrBreak: () => Tokens.scope(Tokens.space(), Tokens.break()),
+  scopeEmptyOrBreak: () => Tokens.scope(Tokens.empty(), Tokens.break()),
   scopeEmptyOrComma: () => Tokens.scope(Tokens.empty(), Tokens.comma()),
+  scopeSpaceOrBreak: () => Tokens.scope(Tokens.space(), Tokens.break()),
 
   // Whitespace tokens.
   empty: () => ({
@@ -70,6 +68,10 @@ const Tokens = {
 
   semiColon: () => ({
     type: 'semiColon',
+  }),
+
+  period: () => ({
+    type: 'period',
   }),
 
   // Final string token. These will be printed exactly in the result.

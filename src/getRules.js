@@ -50,11 +50,11 @@ export default function getRules() {
 
     // Rudementary scope breaking.
     ({tokens, options}) => {
-      function shouldReset(token) {
+      function endOfLine(token) {
         if (token.scope) {
-          return shouldReset(token.unbroken);
+          return endOfLine(token.unbroken);
         }
-        
+
         switch (token.type) {
           case 'string':
             return endsWithNewLine(token.value);
@@ -79,6 +79,7 @@ export default function getRules() {
 
           case 'colon':
           case 'comma':
+          case 'period':
           case 'semiColon':
           case 'space':
             return 1;
@@ -88,70 +89,126 @@ export default function getRules() {
         }
       }
 
-      function resolveBrokenTokens(tokens) {
-        return tokens.map(token =>
-          token.scope
-            ? token.isBroken
-              ? token.broken
-              : token.unbroken
-            : token
-        );
-      }
-
       function breakScopeID(tokens, scopeID) {
         return tokens.map(token =>
           token.scopeID === scopeID
-            ? { ...token, isBroken: true }
+            ? token.broken
             : token
         );
       }
 
-      let indent = 0;
-      let space = 0;
-      let somethingBroke = true;
-      while (somethingBroke) {
-        space = options.maxLineLength;
-        somethingBroke = false;
+      /**
+       * This will compute the lines based on token indices in the given array.
+       *
+       * Each line is: [token index inclusive, token index exclusive)
+       */
+      function computeLines(tokens) {
+        let lines = [];
         for (let i = 0; i < tokens.length; i++) {
-          space = space - measure(tokens[i]);
-          if (space < 0) {
-            for (let j = i; j >= 0; j--) {
-              if (tokens[j].scope) {
-                tokens = breakScopeID(tokens, tokens[j].scopeID);
-                somethingBroke = true;
+          if (endOfLine(tokens[i]) || (i === tokens.length - 1)) {
+            if (lines.length === 0) {
+              lines.push([0, i + 1]);
+            } else {
+              lines.push([lines[lines.length - 1][1], i + 1]);
+            }
+          }
+        }
+        return lines;
+      }
+
+      /**
+       * This computes the indentation of each line assuming no scopes break.
+       */
+      function computeIndents(tokens, lines) {
+        let indent = 0;
+        return lines.map(line => {
+          // Only capture the indent once we see a printable character.
+          let capturedIndent = -1;
+          for (let i = line[0]; i < line[1]; i++) {
+            const token = tokens[i].scope ? tokens[i].unbroken : tokens[i];
+            if (token.type === 'indent') {
+              indent++;
+            } else if (token.type === 'dedent') {
+              indent--;
+            }
+
+            if (measure(token) > 0 && capturedIndent < 0) {
+              capturedIndent = indent;
+            }
+          }
+          return capturedIndent < 0 ? indent : capturedIndent;
+        });
+      }
+
+      // We will keep trying to break lines until they stop breaking.
+      let someLinesBroke = true;
+      while (someLinesBroke) {
+        someLinesBroke = false;
+
+        // First we need to recompute the lines.
+        const lines = computeLines(tokens);
+
+        // Compute the indentation of each line assuming there are no breaks.
+        const indents = computeIndents(tokens, lines);
+
+        // Track the scopes to break.
+        const scopesToBreak = new Set();
+
+        for (let i = 0; i < lines.length; i++) {
+          const [start, end] = lines[i];
+
+          let alreadyHasBrokenScope = false;
+          let spaceUsedByLine = indents[i] * 2;
+          let scopes = [];
+
+          for (let j = start; j < end; j++) {
+            if (tokens[j].scope) {
+              scopes.push(tokens[j].scopeID);
+              if (scopesToBreak.has(tokens[j].scopeID)) {
+                alreadyHasBrokenScope = true;
                 break;
               }
             }
-            // If we didn't change anything we just have to deal with the fact
-            // that this line will be over the limit.
-            if (somethingBroke) {
-              break;
+            const token = tokens[j].scope ? tokens[j].unbroken : tokens[j];
+            const spaceUsedByToken = measure(token);
+            if (spaceUsedByToken > 0) {
+              spaceUsedByLine += spaceUsedByToken;
             }
           }
-          if (shouldReset(tokens[i])) {
-            space = options.maxLineLength;
+
+          // Don't need to break something manually, some other line has caused
+          // a scope in thie line to break. We will check that scope first.
+          if (alreadyHasBrokenScope) {
+            continue;
+          }
+
+          // TODO: We can track the spacing between token groups based to
+          // help choose which scope to break. E.g. Scope 1 results in groups
+          // of size (5, 10, 7, 8) which is evenly distributed, but Scope 2
+          // has groups of size (1, 30, 1) which means it's a bad scope.
+
+          // Now we need to find a scope to break in this line. For now we
+          // naively select the first scope we see.
+          if (spaceUsedByLine > options.maxLineLength && scopes.length > 0) {
+            scopesToBreak.add(scopes[0]);
           }
         }
-        if (somethingBroke) {
-          tokens = resolveBrokenTokens(tokens);
+
+        if (scopesToBreak.size > 0) {
+          // Break the scopes.
+          scopesToBreak.forEach(scopeID => {
+            tokens = breakScopeID(tokens, scopeID);
+          });
+          someLinesBroke = true;
+          scopesToBreak.clear();
         }
       }
 
       return tokens;
     },
 
-    // Actualize the scopes, no scope tokens should remain after this.
-    ({tokens}) => tokens.map(token => {
-      if (token.scope) {
-        if (token.isBroken) {
-          return token.broken;
-        } else {
-          return token.unbroken;
-        }
-      } else {
-        return token;
-      }
-    }),
+    // We are done breaking scopes, now mark all remaining scopes as unbroken.
+    ({tokens}) => tokens.map(token => token.scope ? token.unbroken : token),
 
     // Remove extra breaks. Simplified for now, we need to traverse other
     // non printable characters to remove extra breaks in the future.
@@ -177,6 +234,9 @@ export default function getRules() {
 
         case 'empty':
           return Tokens.string('');
+
+        case 'period':
+          return Tokens.string('.');
 
         case 'semiColon':
           return Tokens.string(';');

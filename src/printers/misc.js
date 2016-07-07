@@ -49,8 +49,6 @@ export default {
     print(node.value),
   ],
 
-  Identifier: ({node}) => Tokens.string(node.name),
-
   Directive: ({node, print}) => [
     print(node.value),
     Tokens.semiColon(),

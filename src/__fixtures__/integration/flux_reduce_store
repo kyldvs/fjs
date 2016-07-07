@@ -1,72 +1,4 @@
-exports[`fjs breaks_function_calls 0`] = `
-"fooo(one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve);
-foooo(
-  one,
-  two,
-  three,
-  four,
-  five,
-  six,
-  seven,
-  eight,
-  nine,
-  ten,
-  eleven,
-  twelve,
-);
-"
-`;
-
-exports[`fjs changes-quotes 0`] = `
-"let x = 'foobar';
-x = 'foobar';
-x = '\"';
-x = '\"';
-x = '\\'';
-x = '\\'';
-"
-`;
-
-exports[`fjs code_01 0`] = `
-"/**
- * Copyright 2004-present Facebook. All Rights Reserved.
- */
-
-'use strict';
-
-import Tokens from './Tokens';
-
-import comments from './printers/comments';
-import expressions from './printers/expressions';
-import literals from './printers/literals';
-import misc from './printers/misc';
-import statements from './printers/statements';
-
 /**
- * Printers convert an AST into tokens which may then be formatted.
- */
-export default function getPrinters(x, y, z) {
-  return {
-    ...comments,
-    ...expressions,
-    ...literals,
-    ...misc,
-    ...statements,
-    ...thisissomethingreallylongthatwillbreak,
-  };
-};
-"
-`;
-
-exports[`fjs code_02 0`] = `
-"x;
-// There should be no extra new lines in between these statements.
-x;
-"
-`;
-
-exports[`fjs flux_reduce_store 0`] = `
-"/**
  * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the
@@ -79,7 +11,7 @@ exports[`fjs flux_reduce_store 0`] = `
 
 'use strict';
 
-import Dispatcher from 'Dispatcher';
+import type Dispatcher from 'Dispatcher';
 
 const FluxStore = require('FluxStore');
 
@@ -108,6 +40,7 @@ const invariant = require('invariant');
  *   }
  */
 class FluxReduceStore<TState> extends FluxStore {
+
   _state: TState;
 
   constructor(dispatcher: Dispatcher) {
@@ -157,18 +90,20 @@ class FluxReduceStore<TState> extends FluxStore {
     // This means your ending state should never be undefined.
     invariant(
       endingState !== undefined,
-      '%s returned undefined from reduce(...), did you forget to return ' + 'state in the default case? (use null if this was intentional)',
+      '%s returned undefined from reduce(...), did you forget to return ' +
+      'state in the default case? (use null if this was intentional)',
       this.constructor.name,
     );
 
     if (!this.areEqual(startingState, endingState)) {
       this._state = endingState;
 
-      // \`__emitChange()\` sets \`this.__changed\` to true and then the actual
+      // `__emitChange()` sets `this.__changed` to true and then the actual
       // change will be fired from the emitter at the end of the dispatch, this
-      // is required in order to support methods like \`hasChanged()\`
+      // is required in order to support methods like `hasChanged()`
       this.__emitChange();
     }
+
     if (this.__changed) {
       this.__emitter.emit(this.__changeEvent);
     }
@@ -176,50 +111,3 @@ class FluxReduceStore<TState> extends FluxStore {
 }
 
 module.exports = FluxReduceStore;
-"
-`;
-
-exports[`fjs large-numbers 0`] = `
-"100000000000000000000123456789;
-"
-`;
-
-exports[`fjs simple-block-comment 0`] = `
-"/*
- * comment
- */
-1 + 1;
-"
-`;
-
-exports[`fjs simple-comment 0`] = `
-"// This is a comment
-1 + 1;
-"
-`;
-
-exports[`fjs simple-scope-breaking 0`] = `
-"const foo = {
-  meh: 'reasonably long value',
-  meh2: 'this one will make things wrap, hopefully...',
-};
-"
-`;
-
-exports[`fjs string-escapes 0`] = `
-"let x = '\\\\\\\\\\\\\\'';
-"
-`;
-
-exports[`fjs variable-declarations 0`] = `
-"var foo, bar;
-var baz;
-let buz = 1;
-const qux = { one: 1, two: 2 };
-"
-`;
-
-exports[`fjs works 0`] = `
-"1 + 1;
-"
-`;

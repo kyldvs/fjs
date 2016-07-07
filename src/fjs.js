@@ -17,7 +17,9 @@ import print from './print';
 export default function fjs(input: Input): Output {
   const {ast} = babel.transform(input.code, {
     plugins: [
+      'syntax-flow',
       'syntax-object-rest-spread',
+      'syntax-trailing-function-commas',
     ],
   });
   const globalContext = getGlobalContext(ast);

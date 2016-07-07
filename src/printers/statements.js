@@ -10,6 +10,8 @@ import {map, printList, printStatements} from '../utils';
 
 export default {
   BlockStatement: ({node, print}) => [
+    // TODO: Inner comments.
+    // TODO: Directives?
     Tokens.string('{'),
     Tokens.break(),
     Tokens.indent(),
@@ -20,7 +22,6 @@ export default {
   ],
 
   // BreakStatement: ({node, print}) => [],
-  // ClassDeclaration: ({node, print}) => [],
   // ContinueStatement: ({node, print}) => [],
   // DebuggerStatement: ({node, print}) => [],
   // DeclareClass: ({node, print}) => [],
@@ -54,7 +55,22 @@ export default {
     print(node.body),
   ],
 
-  // IfStatement: ({node, print}) => [],
+  IfStatement: ({node, print}) => [
+    Tokens.string('if'),
+    Tokens.space(),
+    Tokens.string('('),
+    print(node.test),
+    Tokens.string(')'),
+    Tokens.space(),
+    print(node.consequent),
+    node.alternate && [
+      Tokens.space(),
+      Tokens.string('else'),
+      Tokens.space(),
+      print(node.alternate),
+    ],
+  ],
+
   // InterfaceDeclaration: ({node, print}) => [],
   // LabeledStatement: ({node, print}) => [],
 

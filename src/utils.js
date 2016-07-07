@@ -30,8 +30,12 @@ export function flatten(arr) {
  * Prints a comma separated list that is wrapped in a scope.
  */
 export function printList(items, print) {
+  if (!items) {
+    return null;
+  }
   return [
     Tokens.scopeOpen('list'),
+    Tokens.scopeEmptyOrBreak(),
     items.map((item, i, arr) => [
       i > 0 && [
         Tokens.comma(),
@@ -39,6 +43,7 @@ export function printList(items, print) {
       ],
       print(item),
       i === arr.length - 1 && Tokens.scopeEmptyOrComma(),
+      i === arr.length - 1 && Tokens.scopeEmptyOrBreak(),
     ]),
     Tokens.scopeClose(),
   ];
@@ -48,6 +53,9 @@ export function printList(items, print) {
  * Prints an array of statements respecting the spacing between them.
  */
 export function printStatements(statements, print) {
+  if (!statements) {
+    return null;
+  }
   return statements.map((node, i, arr) => {
     if (i > 0) {
       const prevEnd = arr[i - 1].loc.end.line;

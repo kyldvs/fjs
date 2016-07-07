@@ -6,7 +6,7 @@
 
 import Tokens from '../Tokens';
 
-import {map} from '../utils';
+import {map, printList} from '../utils';
 
 export default {
   // ArrayExpression: ({node, print}) => [],
@@ -31,15 +31,36 @@ export default {
   ],
 
   // BindExpression: ({node, print}) => [],
-  // CallExpression: ({node, print}) => [],
+
+  CallExpression: ({node, print}) => [
+    print(node.callee),
+    Tokens.string('('),
+    node.arguments && node.arguments.length && printList(node.arguments, print),
+    Tokens.string(')'),
+  ],
+
   // ClassExpression: ({node, print}) => [],
   // ConditionalExpression: ({node, print}) => [],
   // DoExpression: ({node, print}) => [],
   // FunctionExpression: ({node, print}) => [],
+
+  Identifier: ({node, print}) => [
+    Tokens.string(node.name),
+    print(node.typeAnnotation),
+  ],
+
   // JSXEmptyExpression: ({node, print}) => [],
   // JSXMemberExpression: ({node, print}) => [],
   // LogicalExpression: ({node, print}) => [],
-  // MemberExpression: ({node, print}) => [],
+
+  MemberExpression: ({node, print}) => [
+    print(node.object),
+    node.computed && Tokens.string('['),
+    (!node.computed) && Tokens.period(),
+    print(node.property),
+    node.computed && Tokens.string(']'),
+  ],
+
   // NewExpression: ({node, print}) => [],
 
   ObjectExpression: ({node, print}) => [
@@ -58,10 +79,23 @@ export default {
 
   // ParenthesizedExpression: ({node, print}) => [],
   // SequenceExpression: ({node, print}) => [],
+
+  Super: () => Tokens.string('super'),
+
   // TaggedTemplateExpression: ({node, print}) => [],
-  // ThisExpression: ({node, print}) => [],
+
+  ThisExpression: () => Tokens.string('this'),
+
   // TypeCastExpression: ({node, print}) => [],
-  // UnaryExpression: ({node, print}) => [],
+
+  UnaryExpression: ({node, print}) => [
+    node.prefix && Tokens.string(node.operator),
+    node.extra.parenthesizedArgument && Tokens.string('('),
+    print(node.argument),
+    node.extra.parenthesizedArgument && Tokens.string(')'),
+    (!node.prefix) && Tokens.string(node.operator),
+  ],
+
   // UpdateExpression: ({node, print}) => [],
   // YieldExpression: ({node, print}) => [],
 };
