@@ -101,6 +101,7 @@ export default {
   VariableDeclaration: ({print, node}) => [
     Tokens.string(node.kind),
     Tokens.space(),
+    // Not quite the same as print list since there is no trailing comma.
     map(node.declarations, (declaration, i) => [
       i > 0 && [Tokens.comma(), Tokens.space()],
       print(declaration),
