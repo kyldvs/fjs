@@ -1,0 +1,4 @@
+exports[`test foo 0`] = `
+"1 + 1;
+"
+`;
