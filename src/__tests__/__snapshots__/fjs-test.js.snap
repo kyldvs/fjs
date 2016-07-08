@@ -173,7 +173,8 @@ class FluxReduceStore<TState> extends FluxStore {
     // This means your ending state should never be undefined.
     invariant(
       endingState !== undefined,
-      '%s returned undefined from reduce(...), did you forget to return ' + 'state in the default case? (use null if this was intentional)',
+      '%s returned undefined from reduce(...), did you forget to return ' +
+      'state in the default case? (use null if this was intentional)',
       this.constructor.name,
     );
 
@@ -231,17 +232,13 @@ exports[`fjs logical_expression_chains 0`] = `
   this_is_a_naked_chain_2
 );
 
-(
-  this_is_a_naked_chain ||
-  (
-    these_are_some_ands &&
-    and_there_are_so_many &&
-    of_them_that_they_will_also &&
-    need_to_be_broken_up &&
-    after_the_first_chain
-  ) ||
-  this_is_a_naked_chain_2
-);
+this_is_a_naked_chain || (
+  these_are_some_ands &&
+  and_there_are_so_many &&
+  of_them_that_they_will_also &&
+  need_to_be_broken_up &&
+  after_the_first_chain
+) || this_is_a_naked_chain_2;
 
 if (
   this_is_a_long_identifier ||

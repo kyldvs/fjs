@@ -27,13 +27,40 @@ export default {
 
   // AwaitExpression: ({node, print}) => [],
 
-  BinaryExpression: ({node, print}) => [
-    print(node.left),
-    Tokens.space(),
-    Tokens.string(node.operator),
-    Tokens.space(),
-    print(node.right),
-  ],
+  BinaryExpression: ({node, path, print}) => {
+    const parenthesized = node.extra && node.extra.parenthesized;
+
+    let hasParentBinaryExpression = false;
+
+    // Note: We don't check the last node, it's always a LogicalExpression since
+    // that's the node we are printing.
+    for (let i = 0; i < path.length - 1; i++) {
+      if (path[i] && path[i].type === 'BinaryExpression') {
+        hasParentBinaryExpression = true;
+        break;
+      }
+    }
+
+    const createScope = !hasParentBinaryExpression && !parenthesized;
+
+    return [
+      parenthesized && Tokens.string('('),
+      parenthesized && Tokens.scopeOpen('binary_expressions'),
+      createScope && Tokens.scopeOpenNoIndent('binary_expressions'),
+
+      Tokens.scopeEmptyOrBreak(),
+      print(node.left),
+      Tokens.space(),
+      Tokens.string(node.operator),
+      Tokens.scopeSpaceOrBreak(),
+      print(node.right),
+
+      createScope && Tokens.scopeCloseNoDedent(),
+      parenthesized && Tokens.scopeEmptyOrBreak(),
+      parenthesized && Tokens.scopeClose(),
+      parenthesized && Tokens.string(')'),
+    ];
+  },
 
   // BindExpression: ({node, print}) => [],
 

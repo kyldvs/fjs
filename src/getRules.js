@@ -9,10 +9,21 @@ import Tokens from './Tokens';
 import assert from 'assert';
 import {endsWithNewLine, hasNonWhitespace} from './regex';
 
-// Lower is more likely to break.
+// Higher priority is better.
+const DEFAULT_PRIORITY = 1;
 const SCOPE_PRIORITY = new Map([
-  ['ternary', 0],
-  ['logical_expressions', 1],
+  ['ternary', 4],
+  ['logical_expressions', 2],
+  ['binary_expressions', 2],
+]);
+
+// This is the penalty to the number of breaks for certain kinds of scopes.
+// This prevents things like empty call expressions from having 2 free breaks.
+// A lower penalty means more likely to break.
+const DEFAULT_PENALTY = 0;
+const SCOPE_BREAK_PENALTY = new Map([
+  ['logical_expressions', 2],
+  ['binary_expressions', 2],
 ]);
 
 /**
@@ -67,6 +78,9 @@ export default function getRules() {
         // Compute the indentation of each line assuming there are no breaks.
         const indents = computeIndents(tokens, lines);
 
+        // Figure out how many breaks are in each scope.
+        const scopeBreaks = computeScopeBreaks(tokens);
+
         // Track the scopes to break.
         const scopesToBreak = new Set();
 
@@ -109,21 +123,40 @@ export default function getRules() {
             spaceUsedByLine > options.maxLineLength &&
             scopeIndices.length > 0
           ) {
-            let min = 0;
-            let minKind = tokens[scopeIndices[min]].kind;
+
+            let maxIndex = 0;
+            let _maxKind = tokens[scopeIndices[maxIndex]].kind;
+            let _maxID = tokens[scopeIndices[maxIndex]].scopeID;
+            let _maxPriority = SCOPE_PRIORITY.has(_maxKind)
+              ? SCOPE_PRIORITY.get(_maxKind)
+              : DEFAULT_PRIORITY;
+            let _maxPenalty = SCOPE_BREAK_PENALTY.has(_maxKind)
+              ? SCOPE_BREAK_PENALTY.get(_maxKind)
+              : DEFAULT_PENALTY;
+            let _maxBreaks = scopeBreaks.get(_maxID) - _maxPenalty;
+            let maxValue = _maxPriority * _maxBreaks;
+
             for (let j = 1; j < scopeIndices.length; j++) {
-              const kind = tokens[scopeIndices[j]].kind;
-              if (SCOPE_PRIORITY.has(kind) && SCOPE_PRIORITY.has(minKind)) {
-                if (SCOPE_PRIORITY.get(kind) < SCOPE_PRIORITY.get(minKind)) {
-                  min = j;
-                  minKind = kind;
-                }
-              } else if (SCOPE_PRIORITY.has(kind)) {
-                min = j;
-                minKind = kind;
+              const currIndex = j;
+              const currToken = tokens[scopeIndices[currIndex]];
+              const currID = currToken.scopeID;
+              const currKind = currToken.kind;
+              const currPriority = SCOPE_PRIORITY.has(currKind)
+                ? SCOPE_PRIORITY.get(currKind)
+                : DEFAULT_PRIORITY;
+              const currPenalty = SCOPE_BREAK_PENALTY.has(currKind)
+                ? SCOPE_BREAK_PENALTY.get(currKind)
+                : DEFAULT_PENALTY;
+              const currBreaks = scopeBreaks.get(currID) - currPenalty;
+              const currValue = currPriority * currBreaks;
+
+              if (currValue > maxValue) {
+                maxIndex = currIndex;
+                maxValue = currValue;
               }
             }
-            scopesToBreak.add(tokens[scopeIndices[min]].scopeID);
+
+            scopesToBreak.add(tokens[scopeIndices[maxIndex]].scopeID);
           }
         }
 
@@ -330,4 +363,22 @@ function computeIndents(tokens, lines) {
     }
     return capturedIndent < 0 ? indent : capturedIndent;
   });
+}
+
+/**
+ * Counts the number of breaks that would result from a scope breaking.
+ */
+function computeScopeBreaks(tokens) {
+  const scopeBreaks = new Map();
+  for (const token of tokens) {
+    if (token.scope) {
+      if (!scopeBreaks.has(token.scopeID)) {
+        scopeBreaks.set(token.scopeID, 0);
+      }
+      if (token.broken.type === 'break') {
+        scopeBreaks.set(token.scopeID, scopeBreaks.get(token.scopeID) + 1);
+      }
+    }
+  }
+  return scopeBreaks;
 }
