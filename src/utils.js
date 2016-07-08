@@ -29,12 +29,12 @@ export function flatten(arr) {
 /**
  * Prints a comma separated list that is wrapped in a scope.
  */
-export function printList(items, print) {
+export function printList(items, print, kind) {
   if (!items) {
     return null;
   }
   return [
-    Tokens.scopeOpen('list'),
+    Tokens.scopeOpen(kind),
     Tokens.scopeEmptyOrBreak(),
     items.map((item, i, arr) => [
       i > 0 && [

@@ -67,7 +67,7 @@ export default {
   CallExpression: ({node, print}) => [
     print(node.callee),
     Tokens.string('('),
-    node.arguments && node.arguments.length && printList(node.arguments, print),
+    printList(node.arguments, print, 'call_expression'),
     Tokens.string(')'),
   ],
 

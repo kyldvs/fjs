@@ -1,3 +1,11 @@
+exports[`fjs binary_expression_chains 0`] = `
+"
+this_is_a_long_identifier +
+this_is_another_long_identifier -
+here_is_one_more_of_them;
+"
+`;
+
 exports[`fjs breaks_function_calls 0`] = `
 "fooo(one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve);
 foooo(

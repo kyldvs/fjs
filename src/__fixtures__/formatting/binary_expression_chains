@@ -1,0 +1,5 @@
+this_is_a_long_identifier + this_is_another_long_identifier - here_is_one_more_of_them + and_another;
+
+t(this_is_a_long_identifier + this_is_another_long_identifier - here_is_one_more_of_them + and_another);
+
+t(this_is_a_long_identifier + (this_is_another_long_identifier - here_is_one_more_of_them) + and_another);

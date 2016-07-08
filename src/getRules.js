@@ -12,6 +12,7 @@ import {endsWithNewLine, hasNonWhitespace} from './regex';
 // Higher priority is better.
 const DEFAULT_PRIORITY = 1;
 const SCOPE_PRIORITY = new Map([
+  // Always break this if something needs to break.
   ['ternary', 4],
   ['logical_expressions', 2],
   ['binary_expressions', 2],
@@ -169,6 +170,9 @@ export default function getRules() {
           scopesToBreak.clear();
         }
       }
+
+      // TODO: Any call expressions (or other parenthesized things) that have
+      // child scopes that break should also always break.
 
       return tokens;
     },

@@ -19,3 +19,36 @@ if (this_is_a_long_identifier || this_is_another_one && this_one_is_too || one_m
 (this_is_a_long_identifier || this_is_another_one && this_one_is_too || one_more_short_one)(this_is_a_long_identifier || this_is_another_one && this_one_is_too || one_more_short_one);
 
 (this_is_a_long_identifier || this_is_another_one && this_one_is_too || one_more_short_one)((this_is_a_long_identifier || this_is_another_one && this_one_is_too || one_more_short_one));
+
+foo(
+  long_identifier_foo ||
+  long_identifier_foo ||
+  long_identifier_foo ||
+  bar(
+    long_identifier_bar ||
+    long_identifier_bar ||
+    long_identifier_bar ||
+    baz(
+      long_identifier_baz,
+      long_identifier_baz,
+      long_identifier_baz,
+      buz(
+        long_identifier_buz ||
+        long_identifier_buz ||
+        long_identifier_buz ||
+        long_identifier_buz ||
+        long_identifier_buz ||
+        long_identifier_buz
+      ),
+      long_identifier_baz,
+      long_identifier_baz,
+      long_identifier_baz,
+    ) ||
+    long_identifier_bar ||
+    long_identifier_bar ||
+    long_identifier_bar
+  ) ||
+  long_identifier_foo ||
+  long_identifier_foo ||
+  long_identifier_foo
+);
