@@ -9,6 +9,11 @@ import fjs from './fjs/';
 import fs from 'fs';
 import path from 'path';
 
+/**
+ * This will run tests for a particular directory in the fixtures folder. It is
+ * used to split up the snapshot files into meaningful categories so that it is
+ * not one giant output file.
+ */
 export default function testFixtures(dir) {
   const fixturesPath = path.join(__dirname, '__fixtures__', dir);
   buildFixtures(fixturesPath).forEach(fixture => {
