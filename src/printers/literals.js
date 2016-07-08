@@ -6,6 +6,8 @@
 
 import Tokens from '../Tokens';
 
+import {escapeStringLiteral} from '../utils';
+
 export default {
   BooleanLiteral: ({node}) => (
     node.value ? Tokens.string('true') : Tokens.string('false')
@@ -28,13 +30,3 @@ export default {
 
   // TemplateLiteral: ({node, print}) => [],
 };
-
-function escapeStringLiteral(value) {
-  return swapQuotes(JSON.stringify(swapQuotes(value)));
-}
-
-function swapQuotes(str) {
-  return str.replace(/['"]/g, m => {
-    return m === '"' ? '\'' : '"';
-  });
-}

@@ -304,23 +304,6 @@ declare class BabelNodeYieldExpression extends BabelNode {
   argument?: ?BabelNodeExpression;
 }
 
-declare class BabelNodeAnyTypeAnnotation extends BabelNode {
-  type: "AnyTypeAnnotation";
-}
-
-declare class BabelNodeArrayTypeAnnotation extends BabelNode {
-  type: "ArrayTypeAnnotation";
-  elementType: any;
-}
-
-declare class BabelNodeBooleanLiteralTypeAnnotation extends BabelNode {
-  type: "BooleanLiteralTypeAnnotation";
-}
-
-declare class BabelNodeNullLiteralTypeAnnotation extends BabelNode {
-  type: "NullLiteralTypeAnnotation";
-}
-
 declare class BabelNodeClassImplements extends BabelNode {
   type: "ClassImplements";
   id: any;

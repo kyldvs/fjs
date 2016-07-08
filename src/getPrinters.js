@@ -13,6 +13,7 @@ import flow from './printers/flow';
 import importExport from './printers/importExport';
 import literals from './printers/literals';
 import misc from './printers/misc';
+import obsolete from './printers/obsolete';
 import statements from './printers/statements';
 
 /**
@@ -27,6 +28,7 @@ export default function getPrinters() {
     ...importExport,
     ...literals,
     ...misc,
+    ...obsolete,
     ...statements,
   };
 };

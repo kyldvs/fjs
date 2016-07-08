@@ -6,22 +6,78 @@
 
 import Tokens from '../Tokens';
 
-import {printList} from '../utils';
+import assert from 'assert';
+import {escapeStringLiteral, printList} from '../utils';
 
 export default {
+  AnyTypeAnnotation: () => Tokens.string('any'),
+
   BooleanTypeAnnotation: () => Tokens.string('boolean'),
-  StringTypeAnnotation: () => Tokens.string('string'),
-  VoidTypeAnnotation: () => Tokens.string('void'),
+
+  BooleanLiteralTypeAnnotation: ({node}) => node.value
+    ? Tokens.string('true')
+    : Tokens.string('false'),
 
   GenericTypeAnnotation: ({node, print}) => [
     print(node.id),
     print(node.typeParameters),
   ],
 
+  NullableTypeAnnotation: ({node, print}) => [
+    Tokens.questionMark(),
+    print(node.typeAnnotation),
+  ],
+
+  NullLiteralTypeAnnotation: () => Token.string('null'),
+
+  NumberTypeAnnotation: () => Tokens.string('number'),
+
+  NumericLiteralTypeAnnotation: ({node}) => Tokens.string(node.extra.raw),
+
+  StringLiteralTypeAnnotation: ({node}) => (
+    Tokens.string(escapeStringLiteral(node.value))
+  ),
+
+  StringTypeAnnotation: () => Tokens.string('string'),
+
+  ThisTypeAnnotation: () => Tokens.string('this'),
+
+  TupleTypeAnnotation: ({node, print}) => [
+    Tokens.string('['),
+    printList(node.types, print),
+    Tokens.string(']'),
+  ],
+
+  TypeAlias: ({node, print}) => [
+    Tokens.string('type'),
+    Tokens.space(),
+    print(node.id),
+    print(node.typeParameters),
+    Tokens.space(),
+    Tokens.string('='),
+    Tokens.space(),
+    print(node.right),
+    Tokens.semiColon(),
+    Tokens.break(),
+  ],
+
   TypeAnnotation: ({node, print}) => [
     Tokens.string(':'),
     Tokens.space(),
     print(node.typeAnnotation),
+  ],
+
+  TypeCastExpression: ({node, print}) => [
+    Tokens.string('('),
+    print(node.expression),
+    print(node.typeAnnotation),
+    Tokens.string(')'),
+  ],
+
+  TypeofTypeAnnotation: ({node, print}) => [
+    Tokens.string('typeof'),
+    Tokens.space(),
+    print(node.argument),
   ],
 
   TypeParameter: ({node, print}) => [
@@ -42,4 +98,6 @@ export default {
     printList(node.params, print),
     Tokens.string('>'),
   ],
+
+  VoidTypeAnnotation: () => Tokens.string('void'),
 };
