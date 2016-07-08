@@ -185,6 +185,7 @@ class FluxReduceStore<TState> extends FluxStore {
       // is required in order to support methods like \`hasChanged()\`
       this.__emitChange();
     }
+
     if (this.__changed) {
       this.__emitter.emit(this.__changeEvent);
     }
@@ -202,6 +203,13 @@ exports[`fjs large-numbers 0`] = `
 
 exports[`fjs logical_expression_chains 0`] = `
 "foo || bar && baz;
+
+(
+  this_is_a_long_identifier ||
+  this_is_another_one &&
+  this_one_is_too ||
+  one_more_short_one
+);
 
 (
   this_is_a_long_identifier ||
@@ -234,6 +242,51 @@ exports[`fjs logical_expression_chains 0`] = `
   ) ||
   this_is_a_naked_chain_2
 );
+
+if (
+  this_is_a_long_identifier ||
+  this_is_another_one &&
+  this_one_is_too ||
+  one_more_short_one
+) {
+  (
+    this_is_a_long_identifier ||
+    this_is_another_one &&
+    this_one_is_too ||
+    one_more_short_one
+  );
+}
+
+(
+  this_is_a_long_identifier ||
+  this_is_another_one &&
+  this_one_is_too ||
+  one_more_short_one
+)();
+
+(
+  this_is_a_long_identifier ||
+  this_is_another_one &&
+  this_one_is_too ||
+  one_more_short_one
+)(
+  this_is_a_long_identifier ||
+  this_is_another_one &&
+  this_one_is_too ||
+  one_more_short_one
+);
+
+(
+  this_is_a_long_identifier ||
+  this_is_another_one &&
+  this_one_is_too ||
+  one_more_short_one
+)((
+  this_is_a_long_identifier ||
+  this_is_another_one &&
+  this_one_is_too ||
+  one_more_short_one
+));
 "
 `;
 

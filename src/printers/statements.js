@@ -86,6 +86,7 @@ export default {
     Tokens.string(')'),
     Tokens.space(),
     print(node.consequent),
+    (!node.alternate) && Tokens.break(),
     node.alternate && [
       Tokens.space(),
       Tokens.string('else'),

@@ -85,7 +85,7 @@ export default {
       }
     }
 
-    const createScope = !hasParentLogicalExpression;
+    const createScope = !hasParentLogicalExpression && !parenthesized;
 
     // TODO: This part is basically untested... make some logical chains inside
     // of ifs and function calls, etc.
@@ -94,12 +94,14 @@ export default {
     // For example a naked series of logical expressions will need parenthesis
     // added to them.
     const createScopeParens = createScope && !path.some(pn => pn && (
-      // TODO: Need to verify the logical expression are in the correct part
-      // of the IfStatement/CallExpression etc. For example if it's in the test
-      // of the IfStatement it is wrapped in parenthesis, but the consequent is
-      // not wrapped and should not exclude scope creation.
-      pn.type === 'CallExpression' ||
-      pn.type === 'IfStatement'
+      (
+        pn.type === 'CallExpression' &&
+        pn.arguments.some(argument => argument === node)
+      ) ||
+      (
+        pn.type === 'IfStatement' &&
+        pn.test === node
+      )
     ));
 
     return [
