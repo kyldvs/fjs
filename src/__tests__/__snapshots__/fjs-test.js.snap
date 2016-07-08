@@ -2,7 +2,19 @@ exports[`fjs binary_expression_chains 0`] = `
 "
 this_is_a_long_identifier +
 this_is_another_long_identifier -
-here_is_one_more_of_them;
+here_is_one_more_of_them +
+and_another;
+
+t(
+this_is_a_long_identifier +
+this_is_another_long_identifier -
+here_is_one_more_of_them +
+and_another);
+
+t(
+this_is_a_long_identifier +
+(this_is_another_long_identifier - here_is_one_more_of_them) +
+and_another);
 "
 `;
 
@@ -292,6 +304,31 @@ if (
   this_one_is_too ||
   one_more_short_one
 ));
+
+foo(
+  long_identifier_foo ||
+  long_identifier_foo ||
+  long_identifier_foo ||
+  bar(
+    long_identifier_bar ||
+    long_identifier_bar ||
+    long_identifier_bar ||
+    baz(long_identifier_baz, long_identifier_baz, long_identifier_baz, buz(
+      long_identifier_buz ||
+      long_identifier_buz ||
+      long_identifier_buz ||
+      long_identifier_buz ||
+      long_identifier_buz ||
+      long_identifier_buz,
+    ), long_identifier_baz, long_identifier_baz, long_identifier_baz) ||
+    long_identifier_bar ||
+    long_identifier_bar ||
+    long_identifier_bar,
+  ) ||
+  long_identifier_foo ||
+  long_identifier_foo ||
+  long_identifier_foo
+);
 "
 `;
 
