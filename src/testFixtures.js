@@ -14,16 +14,18 @@ import path from 'path';
  * used to split up the snapshot files into meaningful categories so that it is
  * not one giant output file.
  */
-export default function testFixtures(dir) {
+export default function testFixtures(dir, blacklist) {
   const fixturesPath = path.join(__dirname, '__fixtures__', dir);
   buildFixtures(fixturesPath).forEach(fixture => {
-    it(fixture.name, () => {
-      const inputCode = fixture.input;
-      const input = {code: inputCode};
-      const output = fjs(input);
-      const outputCode = output.code;
-      expect(outputCode).toMatchSnapshot();
-    });
+    if (!blacklist || !blacklist.has(fixture.name)) {
+      it(fixture.name, () => {
+        const inputCode = fixture.input;
+        const input = {code: inputCode};
+        const output = fjs(input);
+        const outputCode = output.code;
+        expect(outputCode).toMatchSnapshot();
+      });
+    }
   });
 }
 

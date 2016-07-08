@@ -1,0 +1,703 @@
+exports[`test 2-space-multi-comment-with-space.js 0`] = `
+"function test() {
+  /*
+   * this is comment
+   */
+
+
+  var i = 20;
+}
+"
+`;
+
+exports[`test 2-space-multi-comment.js 0`] = `
+"function test() {
+  /*
+   * this is comment
+   */
+  var i = 20;
+}
+"
+`;
+
+exports[`test ArrayExpression-ArrayPattern.js 0`] = `
+"[a, b, c];
+[[], [b, c], []];
+[a, , b];
+[a, , , , b];
+[a, b, , c];
+"
+`;
+
+exports[`test AssignmentExpression-BinaryExpression-LogicalExpression.js 0`] = `
+"foo === bar;
+foo + bar;
+foo = bar;
+"
+`;
+
+exports[`test BlockStatement.js 0`] = `
+"{
+}
+{
+  foo();
+}
+"
+`;
+
+exports[`test CallExpression.js 0`] = `
+"foo();
+foo('foo');
+foo('foo', 'bar');
+foo(bar());
+foo(bar('test'));
+"
+`;
+
+exports[`test ConditionalExpression.js 0`] = `
+"foo ? foo : bar;
+"
+`;
+
+exports[`test DebuggerStatement.js 0`] = `
+"debugger;
+"
+`;
+
+exports[`test EmptyStatement.js 0`] = `
+";
+"
+`;
+
+exports[`test Identifier.js 0`] = `
+"foo;
+undefined;
+"
+`;
+
+exports[`test IfStatement.js 0`] = `
+"if (foo) foobar();
+
+if (foo) {
+  foobar();
+}
+
+if (foo) {
+}
+
+if (foo) {
+  foo();
+} else bar();
+
+if (foo) {
+  foo();
+} else {
+  bar();
+}
+if (foo) {
+  foo();
+} else if (bar) {
+  foobar();
+} else {
+  bar();
+}
+"
+`;
+
+exports[`test Literal.js 0`] = `
+"5;
+5.0;
+'foobar';
+'\\n\\r  ';
+/foobar/g;
+null;
+true;
+false;
+5.;
+0b10;
+0o70;
+0X1F;
+"
+`;
+
+exports[`test MemberExpression.js 0`] = `
+"foo['bar'];
+foo.bar;
+
+foo.bar.foo;
+foo.bar['foo'];
+
+foo['foo']['bar'];
+foo[test()][bar()];
+
+0..toString();
+0.5.toString();
+1.0.toString();
+1.000.toString();
+"
+`;
+
+exports[`test ThisExpression.js 0`] = `
+"this;
+this.foo;
+this['foo'];
+this.foo();
+this['foo']();
+"
+`;
+
+exports[`test UpdateExpression.js 0`] = `
+"++i;
+i++;
+foo++.test();
+"
+`;
+
+exports[`test assignment-expression.js 0`] = `
+"1 + a = 2;
+1 + a = 2;
+a = a || a = {  };
+"
+`;
+
+exports[`test assignment.js 0`] = `
+"x = 1;
+var { y: y = 1 } = obj;
+"
+`;
+
+exports[`test binary-expressions.js 0`] = `
+"1 * 1;
+1 && 1;
+1 + +1;
+x + ++y;
+(a + +b * 2);
+a + +b * 2 * 2 * 2;
+a - -b;
+1 + -b;
+1 - --b;
+a - -b * 2;
+1 - --t * t;
+"
+`;
+
+exports[`test bitwise-precedence.js 0`] = `
+"x | y ^ z;
+x | (y ^ z);
+(x | y) ^ z;
+"
+`;
+
+exports[`test block-line-comment-with-concise-format.js 0`] = `
+"{
+  print('hello');
+}
+"
+`;
+
+exports[`test block-line-comment-with-retainlines-option.js 0`] = `
+"{
+  print('hello');
+}
+"
+`;
+
+exports[`test block-line-comment.js 0`] = `
+"// Leading to block
+{
+  print('hello');
+}
+"
+`;
+
+exports[`test block-statements.js 0`] = `
+"if (true) {
+  foo;
+  bar2;
+} else {
+  foo;
+  bar2;
+}
+function fn() {
+  foo;
+  bar2;
+}
+"
+`;
+
+exports[`test boolean-literal-types.js 0`] = `
+"var foo: true;
+var bar: false;
+"
+`;
+
+exports[`test class-declaration.js 0`] = `
+"class Test {
+}
+class Derived extends Super {
+}
+class StaticMethods {
+  static n1() {
+  }
+
+  static get1() {
+  }
+
+  static set1(value) {
+  }
+
+  static gen1() {
+  }
+}
+class Methods {
+  n2() {
+  }
+
+  get2() {
+  }
+
+  set2(value) {
+  }
+
+  gen1() {
+  }
+}
+class ComputedStaticMethods {
+  static n1() {
+  }
+
+  static get1() {
+  }
+
+  static set1(value) {
+  }
+
+  static gen1() {
+  }
+}
+class ComputedMethods {
+  n2() {
+  }
+
+  get2() {
+  }
+
+  set2(value) {
+  }
+
+  gen1() {
+  }
+}
+"
+`;
+
+exports[`test comment-only-with-space.js 0`] = `
+"
+"
+`;
+
+exports[`test comment-only.js 0`] = `
+"
+"
+`;
+
+exports[`test comment-statement-with-retainlines-option.js 0`] = `
+"// comment
+print('hello');
+
+// comment2
+print('hello2');
+"
+`;
+
+exports[`test computed-property-comments-2.js 0`] = `
+"var test = { /**
+     * Before bracket init
+     */
+'a': '1', /*
+      * Inside bracket init
+      */
+'b': '2' }, ok = 42;
+"
+`;
+
+exports[`test computed-property-comments.js 0`] = `
+"var test = {
+  /**
+   * Before bracket init
+   */
+  'a': '1',
+  /*
+    * Inside bracket init
+    */
+  'b': '2',
+  'c': /*
+    * After bracket key
+    */'3',
+  // Before bracket, line comment
+  'd': '4',
+  // Inside bracket, line comment
+  'e': '5',
+  'f': // After bracket, line comment
+  '6',
+};
+"
+`;
+
+exports[`test double.js 0`] = `
+"foo('foo');
+foo('foo\\nlol');
+foo('foo\\n\"lol');
+foo('foo\\n\"\\'lol');
+foo('😂');
+"
+`;
+
+exports[`test empty-line-comment.js 0`] = `
+"function test() {
+  // Leading to EmptyStatement
+  ;
+}
+"
+`;
+
+exports[`test empty.js 0`] = `
+"
+"
+`;
+
+exports[`test export-default-declaration.js 0`] = `
+"export default function a() {
+}
+"
+`;
+
+exports[`test floating-point.js 0`] = `
+"1.1.valueOf();
+1e+300.valueOf();
+"
+`;
+
+exports[`test hard-tab.js 0`] = `
+"function foo() {
+  bar();
+  if (foo) {
+    bar();
+  }
+}
+"
+`;
+
+exports[`test if-block-line-comment.js 0`] = `
+"if (cond) // Leading to if-block
+{
+  print('hello');
+}
+"
+`;
+
+exports[`test if-empty-line-comment.js 0`] = `
+"if (cond) // Leading to EmptyStatement
+;
+"
+`;
+
+exports[`test if-line-comment.js 0`] = `
+"function test() {
+  // Leading if statement
+  if (cond) {
+    print('hello');
+  }
+}
+"
+`;
+
+exports[`test labeled-statement.js 0`] = `
+"function x() {
+  return -1;
+  return --i;
+  return !2;
+  return void0;
+}
+throw -1;
+"
+`;
+
+exports[`test literals.js 0`] = `
+"5;
+5.0;
+'foobar';
+' ';
+'\\n\\r';
+'😂';
+/foobar/g;
+null;
+true;
+false;
+5.;
+0b10;
+0o70;
+0X1F;
+"
+`;
+
+exports[`test member-expression-numeric-literals.js 0`] = `
+"1..toString;
+2..toString();
+0x1F7.toString();
+0b111110111.toString();
+0o767.toString();
+"
+`;
+
+exports[`test modules.js 0`] = `
+"import  from 'foo';
+import ,  from 'foo';
+import  from 'foo';
+
+
+"
+`;
+
+exports[`test number-literal-types.js 0`] = `
+"var a: 123;
+var a: 123.0;
+var a: 0x7B;
+var a: 0b1111011;
+var a: 0o173;
+"
+`;
+
+exports[`test object.js 0`] = `
+"{  } === foo;
+{  } && foo;
+"
+`;
+
+exports[`test object_comments.js 0`] = `
+"var test = { /**
+   * Test 2
+   */
+a: '1', /*
+   * Test 1
+   */
+b: '2', // Test 3
+c: '3' };
+"
+`;
+
+exports[`test return-with-retainlines-and-compact-option.js 0`] = `
+"function foo(l) {
+  return // hi
+  l;
+}
+"
+`;
+
+exports[`test return-with-retainlines-option.js 0`] = `
+"function foo(l) {
+  return l;
+}
+function foo() {
+  return (1 && 2) || 3;
+}
+"
+`;
+
+exports[`test simple-a-lot-of-line-comment.js 0`] = `
+"// Copyright (C) 2012 Yusuke Suzuki <utatane.tea@gmail.com>
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+//
+//   * Redistributions of source code must retain the above copyright
+//   notice, this list of conditions and the following disclaimer.
+//   * Redistributions in binary form must reproduce the above copyright
+//   notice, this list of conditions and the following disclaimer in the
+//   documentation and/or other materials provided with the distribution.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+// ARE DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
+// DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+// (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+// ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+// THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+function test() {
+}
+"
+`;
+
+exports[`test simple-a-lot-of-multi-comment.js 0`] = `
+"/*
+  Copyright (C) 2012 Yusuke Suzuki <utatane.tea@gmail.com>
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions are met:
+
+  * Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  * Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"
+  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  ARE DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
+  DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+function test() {
+}
+"
+`;
+
+exports[`test simple-line-comment.js 0`] = `
+"// Leading
+var i = 20;
+"
+`;
+
+exports[`test simple-multi-comment.js 0`] = `
+"function test() {
+  /*
+   * Leading comment
+   */
+
+  /*
+   *
+   * Leading comment 2
+   *
+   */
+
+  var i = 20;
+}
+"
+`;
+
+exports[`test simple-statement-comment.js 0`] = `
+";
+"
+`;
+
+exports[`test single-line-comment.js 0`] = `
+"// foo
+bar();
+"
+`;
+
+exports[`test single.js 0`] = `
+"foo('foo');
+foo('foo\\nlol');
+foo('foo\\n\"lol');
+foo('foo\\n\"\\'lol');
+foo('😂');
+"
+`;
+
+exports[`test soft-tab-2.js 0`] = `
+"function foo() {
+  bar();
+  if (foo) {
+    bar();
+  }
+}
+"
+`;
+
+exports[`test soft-tab-4.js 0`] = `
+"function foo() {
+  bar();
+  if (foo) {
+    bar();
+  }
+}
+"
+`;
+
+exports[`test string-literal-types.js 0`] = `
+"function createElement(tagName: 'div') {
+}function createElement(tagName: 'div') {
+}
+"
+`;
+
+exports[`test terminator-break.js 0`] = `
+"function foo() {
+  return // foobar
+  'bar';
+}
+function foo() {
+  return // foobar
+  'bar';
+}
+"
+`;
+
+exports[`test this-types.js 0`] = `
+"class Foo {
+  bar(): this {
+    return this;
+  }
+}
+"
+`;
+
+exports[`test tuples.js 0`] = `
+"var a: [] = [];
+var a: [Foo<T>] = [foo];
+var a: [number] = [123];
+var a: [number, string] = [123, 'duck'];
+"
+`;
+
+exports[`test variable-declarator-line-comment.js 0`] = `
+"function test() {
+  var // Leading to VariableDeclarator
+  // Leading to VariableDeclarator
+  i = 20, // Leading to VariableDeclarator
+  // Leading to VariableDeclarator
+  j = 20;
+}
+"
+`;
+
+exports[`test variable-declarator-multi-comment.js 0`] = `
+"function test() {
+  var /*
+   * Leading to VariableDeclarator
+   * Leading to VariableDeclarator
+   */
+  i = 20, /*
+   * Leading to VariableDeclarator
+   * Leading to VariableDeclarator
+   */
+  j = 20;
+}
+"
+`;
+
+exports[`test variable-declarator-trailing-comment.js 0`] = `
+"{
+  var t = 20;
+}
+{
+  var tt = 20;
+}{
+  {
+    var t = 20;
+  }
+}
+"
+`;
