@@ -4,28 +4,30 @@
 
 'use strict';
 
+import Printers from '../Printers';
 import Tokens from '../Tokens';
 
 import {map, printList} from '../utils';
 
 export default {
-  ArrayExpression: ({node, print}) => [
-    Tokens.string('['),
-    printList(node.elements, print),
-    Tokens.string(']'),
-  ],
+  ArrayExpression: ({node, print}) => Printers.Array({
+    elements: node.elements,
+    print,
+  }),
 
   // ArrowFunctionExpression: ({node, print}) => [],
 
-  AssignmentExpression: ({node, print}) => [
-    print(node.left),
-    Tokens.space(),
-    Tokens.string('='),
-    Tokens.space(),
-    print(node.right),
-  ],
+  AssignmentExpression: ({node, print}) => Printers.Assignment({
+    left: node.left,
+    right: node.right,
+    print,
+  }),
 
-  // AwaitExpression: ({node, print}) => [],
+  AwaitExpression: ({node, print}) => [
+    Tokens.string('await'),
+    Tokens.space(),
+    print(node.argument),
+  ],
 
   BinaryExpression: ({node, path, print}) => {
     const parenthesized = node.extra && node.extra.parenthesized;
@@ -62,7 +64,12 @@ export default {
     ];
   },
 
-  // BindExpression: ({node, print}) => [],
+  BindExpression: ({node, print}) => [
+    print(node.object),
+    Tokens.colon(),
+    Tokens.colon(),
+    print(node.callee),
+  ],
 
   CallExpression: ({node, print}) => [
     print(node.callee),
@@ -165,19 +172,10 @@ export default {
 
   // NewExpression: ({node, print}) => [],
 
-  ObjectExpression: ({node, print}) => [
-    Tokens.string('{'),
-    Tokens.scopeOpen(),
-    Tokens.scopeSpaceOrBreak(),
-    map(node.properties, (property, i, arr) => [
-      i > 0 && [Tokens.comma(), Tokens.scopeSpaceOrBreak()],
-      print(property),
-      i === arr.length - 1 && Tokens.scopeEmptyOrComma(),
-    ]),
-    Tokens.scopeSpaceOrBreak(),
-    Tokens.scopeClose(),
-    Tokens.string('}'),
-  ],
+  ObjectExpression: ({node, print}) => Printers.Object({
+    properties: node.properties,
+    print,
+  }),
 
   // ParenthesizedExpression: ({node, print}) => [],
   // SequenceExpression: ({node, print}) => [],
@@ -188,8 +186,6 @@ export default {
 
   ThisExpression: () => Tokens.string('this'),
 
-  // TypeCastExpression: ({node, print}) => [],
-
   UnaryExpression: ({node, print}) => [
     node.prefix && Tokens.string(node.operator),
     node.extra.parenthesizedArgument && Tokens.string('('),
@@ -198,6 +194,11 @@ export default {
     (!node.prefix) && Tokens.string(node.operator),
   ],
 
-  // UpdateExpression: ({node, print}) => [],
+  UpdateExpression: ({node, print}) => [
+    node.prefix && Tokens.string(node.operator),
+    print(node.argument),
+    (!node.prefix) && Tokens.string(node.operator),
+  ],
+
   // YieldExpression: ({node, print}) => [],
 };

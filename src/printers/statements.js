@@ -115,9 +115,16 @@ export default {
   ],
 
   // SwitchStatement: ({node, print}) => [],
-  // ThrowStatement: ({node, print}) => [],
+
+  ThrowStatement: ({node, print}) => [
+    Tokens.string('throw'),
+    Tokens.space(),
+    print(node.argument),
+    Tokens.semiColon(),
+    Tokens.break(),
+  ],
+
   // TryStatement: ({node, print}) => [],
-  // TypeAlias: ({node, print}) => [],
 
   VariableDeclaration: ({print, node}) => [
     Tokens.string(node.kind),

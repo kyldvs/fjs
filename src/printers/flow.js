@@ -23,6 +23,8 @@ export default {
     print(node.typeParameters),
   ],
 
+  MixedTypeAnnotation: () => Tokens.string('mixed'),
+
   NullableTypeAnnotation: ({node, print}) => [
     Tokens.questionMark(),
     print(node.typeAnnotation),
