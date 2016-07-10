@@ -18,6 +18,7 @@ export default function fjs(input: Input): Output {
   const {ast} = babel.transform(input.code, {
     plugins: [
       'syntax-flow',
+      'syntax-jsx',
       'syntax-object-rest-spread',
       'syntax-trailing-function-commas',
     ],

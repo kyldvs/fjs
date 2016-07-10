@@ -11,6 +11,7 @@ import comments from './printers/comments';
 import expressions from './printers/expressions';
 import flow from './printers/flow';
 import importExport from './printers/importExport';
+import jsx from './printers/jsx';
 import literals from './printers/literals';
 import misc from './printers/misc';
 import obsolete from './printers/obsolete';
@@ -27,6 +28,7 @@ export default function getPrinters() {
     ...expressions,
     ...flow,
     ...importExport,
+    ...jsx,
     ...literals,
     ...misc,
     ...obsolete,

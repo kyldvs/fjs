@@ -1,4 +1,12 @@
 exports[`test foo 0`] = `
-"1 + 1;
+"let element = <Foo>
+  Hello
+  <Bar p1=\"apple\" p2={foo} />
+  <Baz
+    p1=\"pretty long string\"
+    p2=\"another reasonable long string\"
+    p3=\"one more for good measure\"
+  />
+</Foo>;
 "
 `;

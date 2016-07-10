@@ -41,4 +41,19 @@ export default {
     Tokens.scopeClose(),
     Tokens.string('}'),
   ],
+
+  String: ({value, quotes}) => [
+    quotes === 'double' && Tokens.string(JSON.stringify(value)),
+    quotes === 'single' && Tokens.string(escapeStringLiteral(value)),
+  ],
 };
+
+function escapeStringLiteral(value) {
+  return swapQuotes(JSON.stringify(swapQuotes(value)));
+}
+
+function swapQuotes(str) {
+  return str.replace(/['"]/g, m => {
+    return m === '"' ? '\'' : '"';
+  });
+}

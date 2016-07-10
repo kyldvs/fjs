@@ -4,10 +4,11 @@
 
 'use strict';
 
+import Printers from '../Printers';
 import Tokens from '../Tokens';
 
 import assert from 'assert';
-import {escapeStringLiteral, printList} from '../utils';
+import {printList} from '../utils';
 
 export default {
   AnyTypeAnnotation: () => Tokens.string('any'),
@@ -36,9 +37,10 @@ export default {
 
   NumericLiteralTypeAnnotation: ({node}) => Tokens.string(node.extra.raw),
 
-  StringLiteralTypeAnnotation: ({node}) => (
-    Tokens.string(escapeStringLiteral(node.value))
-  ),
+  StringLiteralTypeAnnotation: ({node}) => Printers.String({
+    value: node.value,
+    quotes: 'single',
+  }),
 
   StringTypeAnnotation: () => Tokens.string('string'),
 

@@ -27,20 +27,6 @@ export function flatten(arr) {
 }
 
 /**
- * Escapes a string literal correctly in order to converts it to using single
- * quotes.
- */
-export function escapeStringLiteral(value) {
-  return swapQuotes(JSON.stringify(swapQuotes(value)));
-}
-
-function swapQuotes(str) {
-  return str.replace(/['"]/g, m => {
-    return m === '"' ? '\'' : '"';
-  });
-}
-
-/**
  * Prints a comma separated list that is wrapped in a scope.
  */
 export function printList(items, print, kind) {

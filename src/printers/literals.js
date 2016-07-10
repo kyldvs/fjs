@@ -4,16 +4,18 @@
 
 'use strict';
 
+import Printers from '../Printers';
 import Tokens from '../Tokens';
-
-import {escapeStringLiteral} from '../utils';
 
 export default {
   BooleanLiteral: ({node}) => (
     node.value ? Tokens.string('true') : Tokens.string('false')
   ),
 
-  DirectiveLiteral: ({node}) => Tokens.string(escapeStringLiteral(node.value)),
+  DirectiveLiteral: ({node}) => Printers.String({
+    value: node.value,
+    quotes: 'single',
+  }),
 
   NullLiteral: () => Tokens.string('null'),
 
@@ -26,7 +28,10 @@ export default {
     node.flags && Tokens.string(node.flags),
   ],
 
-  StringLiteral: ({node}) => Tokens.string(escapeStringLiteral(node.value)),
+  StringLiteral: ({node}) => Printers.String({
+    value: node.value,
+    quotes: 'single',
+  }),
 
   // TemplateLiteral: ({node, print}) => [],
 };
