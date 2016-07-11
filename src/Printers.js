@@ -24,8 +24,18 @@ export default {
     print(left),
     Tokens.space(),
     Tokens.string('='),
-    Tokens.space(),
-    print(right),
+    right && [
+      right.type === 'JSXElement' && [
+        Tokens.scopeOpen('jsx_after_assignment'),
+        Tokens.scopeSpaceOrBreak(),
+        print(right),
+        Tokens.scopeClose(),
+      ],
+      right.type !== 'JSXElement' && [
+        Tokens.space(),
+        print(right),
+      ],
+    ],
   ],
 
   Object: ({print, properties}) => [
