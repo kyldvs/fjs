@@ -1,4 +1,4 @@
-exports[`test 2-space-multi-comment-with-space.js 0`] = `
+exports[`test 2-space-multi-comment-with-space.js 1`] = `
 "function test() {
   /*
    * this is comment
@@ -10,7 +10,7 @@ exports[`test 2-space-multi-comment-with-space.js 0`] = `
 "
 `;
 
-exports[`test 2-space-multi-comment.js 0`] = `
+exports[`test 2-space-multi-comment.js 1`] = `
 "function test() {
   /*
    * this is comment
@@ -20,7 +20,7 @@ exports[`test 2-space-multi-comment.js 0`] = `
 "
 `;
 
-exports[`test ArrayExpression-ArrayPattern.js 0`] = `
+exports[`test ArrayExpression-ArrayPattern.js 1`] = `
 "[a, b, c];
 [[], [b, c], []];
 [a, , b];
@@ -29,14 +29,14 @@ exports[`test ArrayExpression-ArrayPattern.js 0`] = `
 "
 `;
 
-exports[`test AssignmentExpression-BinaryExpression-LogicalExpression.js 0`] = `
+exports[`test AssignmentExpression-BinaryExpression-LogicalExpression.js 1`] = `
 "foo === bar;
 foo + bar;
 foo = bar;
 "
 `;
 
-exports[`test BlockStatement.js 0`] = `
+exports[`test BlockStatement.js 1`] = `
 "{
 }
 {
@@ -45,37 +45,37 @@ exports[`test BlockStatement.js 0`] = `
 "
 `;
 
-exports[`test CallExpression.js 0`] = `
+exports[`test CallExpression.js 1`] = `
 "foo();
-foo('foo');
-foo('foo', 'bar');
+foo(\'foo\');
+foo(\'foo\', \'bar\');
 foo(bar());
-foo(bar('test'));
+foo(bar(\'test\'));
 "
 `;
 
-exports[`test ConditionalExpression.js 0`] = `
+exports[`test ConditionalExpression.js 1`] = `
 "foo ? foo : bar;
 "
 `;
 
-exports[`test DebuggerStatement.js 0`] = `
+exports[`test DebuggerStatement.js 1`] = `
 "debugger;
 "
 `;
 
-exports[`test EmptyStatement.js 0`] = `
+exports[`test EmptyStatement.js 1`] = `
 ";
 "
 `;
 
-exports[`test Identifier.js 0`] = `
+exports[`test Identifier.js 1`] = `
 "foo;
 undefined;
 "
 `;
 
-exports[`test IfStatement.js 0`] = `
+exports[`test IfStatement.js 1`] = `
 "if (foo) foobar();
 
 if (foo) {
@@ -104,11 +104,11 @@ if (foo) {
 "
 `;
 
-exports[`test Literal.js 0`] = `
+exports[`test Literal.js 1`] = `
 "5;
 5.0;
-'foobar';
-'\\n\\r  ';
+\'foobar\';
+\'\\n\\r  \';
 /foobar/g;
 null;
 true;
@@ -120,14 +120,14 @@ false;
 "
 `;
 
-exports[`test MemberExpression.js 0`] = `
-"foo['bar'];
+exports[`test MemberExpression.js 1`] = `
+"foo[\'bar\'];
 foo.bar;
 
 foo.bar.foo;
-foo.bar['foo'];
+foo.bar[\'foo\'];
 
-foo['foo']['bar'];
+foo[\'foo\'][\'bar\'];
 foo[test()][bar()];
 
 0..toString();
@@ -137,36 +137,81 @@ foo[test()][bar()];
 "
 `;
 
-exports[`test ThisExpression.js 0`] = `
+exports[`test ThisExpression.js 1`] = `
 "this;
 this.foo;
-this['foo'];
+this[\'foo\'];
 this.foo();
-this['foo']();
+this[\'foo\']();
 "
 `;
 
-exports[`test UpdateExpression.js 0`] = `
+exports[`test UpdateExpression.js 1`] = `
 "++i;
 i++;
 foo++.test();
 "
 `;
 
-exports[`test assignment-expression.js 0`] = `
+exports[`test XJSAttribute.js 1`] = `
+"<div id=\"wow\"></div>;
+
+<div id=\"wow\">text</div>;
+
+<div id=\"wow\" disabled=></div>;
+
+<div id=\"wow\" disabled=>text</div>;
+"
+`;
+
+exports[`test XJSElement-XJSOpeningElement-XJSClosingElement-XJSIdentifier.js 1`] = `
+"<div></div>;
+
+<div />;
+
+<div>text</div>;
+"
+`;
+
+exports[`test XJSEmptyExpression.js 1`] = `
+"<a>{}</a>;
+"
+`;
+
+exports[`test XJSExpressionContainer.js 1`] = `
+"<div>{this.props.children}</div>;
+"
+`;
+
+exports[`test XJSMemberExpression.js 1`] = `
+"<Component.Test />;
+"
+`;
+
+exports[`test XJSNamespacedName.js 1`] = `
+"<Component:Test />;
+"
+`;
+
+exports[`test XJSSpreadAttribute.js 1`] = `
+"<Component {...x}></Component>;
+"
+`;
+
+exports[`test assignment-expression.js 1`] = `
 "1 + a = 2;
 1 + a = 2;
 a = a || a = {  };
 "
 `;
 
-exports[`test assignment.js 0`] = `
+exports[`test assignment.js 1`] = `
 "x = 1;
 var { y: y = 1 } = obj;
 "
 `;
 
-exports[`test binary-expressions.js 0`] = `
+exports[`test binary-expressions.js 1`] = `
 "1 * 1;
 1 && 1;
 1 + +1;
@@ -181,36 +226,36 @@ a - -b * 2;
 "
 `;
 
-exports[`test bitwise-precedence.js 0`] = `
+exports[`test bitwise-precedence.js 1`] = `
 "x | y ^ z;
 x | (y ^ z);
 (x | y) ^ z;
 "
 `;
 
-exports[`test block-line-comment-with-concise-format.js 0`] = `
+exports[`test block-line-comment-with-concise-format.js 1`] = `
 "{
-  print('hello');
+  print(\'hello\');
 }
 "
 `;
 
-exports[`test block-line-comment-with-retainlines-option.js 0`] = `
+exports[`test block-line-comment-with-retainlines-option.js 1`] = `
 "{
-  print('hello');
+  print(\'hello\');
 }
 "
 `;
 
-exports[`test block-line-comment.js 0`] = `
+exports[`test block-line-comment.js 1`] = `
 "// Leading to block
 {
-  print('hello');
+  print(\'hello\');
 }
 "
 `;
 
-exports[`test block-statements.js 0`] = `
+exports[`test block-statements.js 1`] = `
 "if (true) {
   foo;
   bar2;
@@ -225,13 +270,13 @@ function fn() {
 "
 `;
 
-exports[`test boolean-literal-types.js 0`] = `
+exports[`test boolean-literal-types.js 1`] = `
 "var foo: true;
 var bar: false;
 "
 `;
 
-exports[`test class-declaration.js 0`] = `
+exports[`test class-declaration.js 1`] = `
 "class Test {
 }
 class Derived extends Super {
@@ -291,69 +336,69 @@ class ComputedMethods {
 "
 `;
 
-exports[`test comment-only-with-space.js 0`] = `
+exports[`test comment-only-with-space.js 1`] = `
 "
 "
 `;
 
-exports[`test comment-only.js 0`] = `
+exports[`test comment-only.js 1`] = `
 "
 "
 `;
 
-exports[`test comment-statement-with-retainlines-option.js 0`] = `
+exports[`test comment-statement-with-retainlines-option.js 1`] = `
 "// comment
-print('hello');
+print(\'hello\');
 
 // comment2
-print('hello2');
+print(\'hello2\');
 "
 `;
 
-exports[`test computed-property-comments-2.js 0`] = `
+exports[`test computed-property-comments-2.js 1`] = `
 "var test = { /**
      * Before bracket init
      */
-'a': '1', /*
+\'a\': \'1\', /*
       * Inside bracket init
       */
-'b': '2' }, ok = 42;
+\'b\': \'2\' }, ok = 42;
 "
 `;
 
-exports[`test computed-property-comments.js 0`] = `
+exports[`test computed-property-comments.js 1`] = `
 "var test = {
   /**
    * Before bracket init
    */
-  'a': '1',
+  \'a\': \'1\',
   /*
     * Inside bracket init
     */
-  'b': '2',
-  'c': /*
+  \'b\': \'2\',
+  \'c\': /*
     * After bracket key
-    */'3',
+    */\'3\',
   // Before bracket, line comment
-  'd': '4',
+  \'d\': \'4\',
   // Inside bracket, line comment
-  'e': '5',
-  'f': // After bracket, line comment
-  '6',
+  \'e\': \'5\',
+  \'f\': // After bracket, line comment
+  \'6\',
 };
 "
 `;
 
-exports[`test double.js 0`] = `
-"foo('foo');
-foo('foo\\nlol');
-foo('foo\\n\"lol');
-foo('foo\\n\"\\'lol');
-foo('😂');
+exports[`test double.js 1`] = `
+"foo(\'foo\');
+foo(\'foo\\nlol\');
+foo(\'foo\\n\"lol\');
+foo(\'foo\\n\"\\\'lol\');
+foo(\'😂\');
 "
 `;
 
-exports[`test empty-line-comment.js 0`] = `
+exports[`test empty-line-comment.js 1`] = `
 "function test() {
   // Leading to EmptyStatement
   ;
@@ -361,24 +406,24 @@ exports[`test empty-line-comment.js 0`] = `
 "
 `;
 
-exports[`test empty.js 0`] = `
+exports[`test empty.js 1`] = `
 "
 "
 `;
 
-exports[`test export-default-declaration.js 0`] = `
+exports[`test export-default-declaration.js 1`] = `
 "export default function a() {
 }
 "
 `;
 
-exports[`test floating-point.js 0`] = `
+exports[`test floating-point.js 1`] = `
 "1.1.valueOf();
 1e+300.valueOf();
 "
 `;
 
-exports[`test hard-tab.js 0`] = `
+exports[`test hard-tab.js 1`] = `
 "function foo() {
   bar();
   if (foo) {
@@ -388,31 +433,31 @@ exports[`test hard-tab.js 0`] = `
 "
 `;
 
-exports[`test if-block-line-comment.js 0`] = `
+exports[`test if-block-line-comment.js 1`] = `
 "if (cond) // Leading to if-block
 {
-  print('hello');
+  print(\'hello\');
 }
 "
 `;
 
-exports[`test if-empty-line-comment.js 0`] = `
+exports[`test if-empty-line-comment.js 1`] = `
 "if (cond) // Leading to EmptyStatement
 ;
 "
 `;
 
-exports[`test if-line-comment.js 0`] = `
+exports[`test if-line-comment.js 1`] = `
 "function test() {
   // Leading if statement
   if (cond) {
-    print('hello');
+    print(\'hello\');
   }
 }
 "
 `;
 
-exports[`test labeled-statement.js 0`] = `
+exports[`test labeled-statement.js 1`] = `
 "function x() {
   return -1;
   return --i;
@@ -423,13 +468,13 @@ throw -1;
 "
 `;
 
-exports[`test literals.js 0`] = `
+exports[`test literals.js 1`] = `
 "5;
 5.0;
-'foobar';
-' ';
-'\\n\\r';
-'😂';
+\'foobar\';
+\' \';
+\'\\n\\r\';
+\'😂\';
 /foobar/g;
 null;
 true;
@@ -441,7 +486,7 @@ false;
 "
 `;
 
-exports[`test member-expression-numeric-literals.js 0`] = `
+exports[`test member-expression-numeric-literals.js 1`] = `
 "1..toString;
 2..toString();
 0x1F7.toString();
@@ -450,16 +495,16 @@ exports[`test member-expression-numeric-literals.js 0`] = `
 "
 `;
 
-exports[`test modules.js 0`] = `
-"import  from 'foo';
-import ,  from 'foo';
-import  from 'foo';
+exports[`test modules.js 1`] = `
+"import  from \'foo\';
+import ,  from \'foo\';
+import  from \'foo\';
 
 
 "
 `;
 
-exports[`test number-literal-types.js 0`] = `
+exports[`test number-literal-types.js 1`] = `
 "var a: 123;
 var a: 123.0;
 var a: 0x7B;
@@ -468,25 +513,25 @@ var a: 0o173;
 "
 `;
 
-exports[`test object.js 0`] = `
+exports[`test object.js 1`] = `
 "{  } === foo;
 {  } && foo;
 "
 `;
 
-exports[`test object_comments.js 0`] = `
+exports[`test object_comments.js 1`] = `
 "var test = { /**
    * Test 2
    */
-a: '1', /*
+a: \'1\', /*
    * Test 1
    */
-b: '2', // Test 3
-c: '3' };
+b: \'2\', // Test 3
+c: \'3\' };
 "
 `;
 
-exports[`test return-with-retainlines-and-compact-option.js 0`] = `
+exports[`test return-with-retainlines-and-compact-option.js 1`] = `
 "function foo(l) {
   return // hi
   l;
@@ -494,7 +539,7 @@ exports[`test return-with-retainlines-and-compact-option.js 0`] = `
 "
 `;
 
-exports[`test return-with-retainlines-option.js 0`] = `
+exports[`test return-with-retainlines-option.js 1`] = `
 "function foo(l) {
   return l;
 }
@@ -504,7 +549,7 @@ function foo() {
 "
 `;
 
-exports[`test simple-a-lot-of-line-comment.js 0`] = `
+exports[`test simple-a-lot-of-line-comment.js 1`] = `
 "// Copyright (C) 2012 Yusuke Suzuki <utatane.tea@gmail.com>
 //
 // Redistribution and use in source and binary forms, with or without
@@ -533,7 +578,7 @@ function test() {
 "
 `;
 
-exports[`test simple-a-lot-of-multi-comment.js 0`] = `
+exports[`test simple-a-lot-of-multi-comment.js 1`] = `
 "/*
   Copyright (C) 2012 Yusuke Suzuki <utatane.tea@gmail.com>
 
@@ -563,13 +608,13 @@ function test() {
 "
 `;
 
-exports[`test simple-line-comment.js 0`] = `
+exports[`test simple-line-comment.js 1`] = `
 "// Leading
 var i = 20;
 "
 `;
 
-exports[`test simple-multi-comment.js 0`] = `
+exports[`test simple-multi-comment.js 1`] = `
 "function test() {
   /*
    * Leading comment
@@ -586,27 +631,27 @@ exports[`test simple-multi-comment.js 0`] = `
 "
 `;
 
-exports[`test simple-statement-comment.js 0`] = `
+exports[`test simple-statement-comment.js 1`] = `
 ";
 "
 `;
 
-exports[`test single-line-comment.js 0`] = `
+exports[`test single-line-comment.js 1`] = `
 "// foo
 bar();
 "
 `;
 
-exports[`test single.js 0`] = `
-"foo('foo');
-foo('foo\\nlol');
-foo('foo\\n\"lol');
-foo('foo\\n\"\\'lol');
-foo('😂');
+exports[`test single.js 1`] = `
+"foo(\'foo\');
+foo(\'foo\\nlol\');
+foo(\'foo\\n\"lol\');
+foo(\'foo\\n\"\\\'lol\');
+foo(\'😂\');
 "
 `;
 
-exports[`test soft-tab-2.js 0`] = `
+exports[`test soft-tab-2.js 1`] = `
 "function foo() {
   bar();
   if (foo) {
@@ -616,7 +661,7 @@ exports[`test soft-tab-2.js 0`] = `
 "
 `;
 
-exports[`test soft-tab-4.js 0`] = `
+exports[`test soft-tab-4.js 1`] = `
 "function foo() {
   bar();
   if (foo) {
@@ -626,26 +671,26 @@ exports[`test soft-tab-4.js 0`] = `
 "
 `;
 
-exports[`test string-literal-types.js 0`] = `
-"function createElement(tagName: 'div') {
-}function createElement(tagName: 'div') {
+exports[`test string-literal-types.js 1`] = `
+"function createElement(tagName: \'div\') {
+}function createElement(tagName: \'div\') {
 }
 "
 `;
 
-exports[`test terminator-break.js 0`] = `
+exports[`test terminator-break.js 1`] = `
 "function foo() {
   return // foobar
-  'bar';
+  \'bar\';
 }
 function foo() {
   return // foobar
-  'bar';
+  \'bar\';
 }
 "
 `;
 
-exports[`test this-types.js 0`] = `
+exports[`test this-types.js 1`] = `
 "class Foo {
   bar(): this {
     return this;
@@ -654,15 +699,15 @@ exports[`test this-types.js 0`] = `
 "
 `;
 
-exports[`test tuples.js 0`] = `
+exports[`test tuples.js 1`] = `
 "var a: [] = [];
 var a: [Foo<T>] = [foo];
 var a: [number] = [123];
-var a: [number, string] = [123, 'duck'];
+var a: [number, string] = [123, \'duck\'];
 "
 `;
 
-exports[`test variable-declarator-line-comment.js 0`] = `
+exports[`test variable-declarator-line-comment.js 1`] = `
 "function test() {
   var // Leading to VariableDeclarator
   // Leading to VariableDeclarator
@@ -673,7 +718,7 @@ exports[`test variable-declarator-line-comment.js 0`] = `
 "
 `;
 
-exports[`test variable-declarator-multi-comment.js 0`] = `
+exports[`test variable-declarator-multi-comment.js 1`] = `
 "function test() {
   var /*
    * Leading to VariableDeclarator
@@ -688,7 +733,7 @@ exports[`test variable-declarator-multi-comment.js 0`] = `
 "
 `;
 
-exports[`test variable-declarator-trailing-comment.js 0`] = `
+exports[`test variable-declarator-trailing-comment.js 1`] = `
 "{
   var t = 20;
 }

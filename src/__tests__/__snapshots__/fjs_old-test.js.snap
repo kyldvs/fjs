@@ -1,4 +1,4 @@
-exports[`test binary_expression_chains 0`] = `
+exports[`test binary_expression_chains 1`] = `
 "
 this_is_a_long_identifier +
 this_is_another_long_identifier -
@@ -18,7 +18,7 @@ and_another);
 "
 `;
 
-exports[`test breaks_function_calls 0`] = `
+exports[`test breaks_function_calls 1`] = `
 "fooo(one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve);
 foooo(
   one,
@@ -37,30 +37,30 @@ foooo(
 "
 `;
 
-exports[`test changes-quotes 0`] = `
-"let x = 'foobar';
-x = 'foobar';
-x = '\"';
-x = '\"';
-x = '\\'';
-x = '\\'';
+exports[`test changes-quotes 1`] = `
+"let x = \'foobar\';
+x = \'foobar\';
+x = \'\"\';
+x = \'\"\';
+x = \'\\\'\';
+x = \'\\\'\';
 "
 `;
 
-exports[`test code_01 0`] = `
+exports[`test code_01 1`] = `
 "/**
  * Copyright 2004-present Facebook. All Rights Reserved.
  */
 
-'use strict';
+\'use strict\';
 
-import Tokens from './Tokens';
+import Tokens from \'./Tokens\';
 
-import comments from './printers/comments';
-import expressions from './printers/expressions';
-import literals from './printers/literals';
-import misc from './printers/misc';
-import statements from './printers/statements';
+import comments from \'./printers/comments\';
+import expressions from \'./printers/expressions\';
+import literals from \'./printers/literals\';
+import misc from \'./printers/misc\';
+import statements from \'./printers/statements\';
 
 /**
  * Printers convert an AST into tokens which may then be formatted.
@@ -78,14 +78,14 @@ export default function getPrinters(x, y, z) {
 "
 `;
 
-exports[`test code_02 0`] = `
+exports[`test code_02 1`] = `
 "x;
 // There should be no extra new lines in between these statements.
 x;
 "
 `;
 
-exports[`test complex_conditionals 0`] = `
+exports[`test complex_conditionals 1`] = `
 "foo ? bar : baz;
 this_is_a_long_identifier
   ? [with_some_array_elements, that_will_break]
@@ -101,7 +101,7 @@ this_is_a_long_identifier
 "
 `;
 
-exports[`test flux_reduce_store 0`] = `
+exports[`test flux_reduce_store 1`] = `
 "/**
  * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
  *
@@ -113,14 +113,14 @@ exports[`test flux_reduce_store 0`] = `
  * @flow
  */
 
-'use strict';
+\'use strict\';
 
-import Dispatcher from 'Dispatcher';
+import Dispatcher from \'Dispatcher\';
 
-const FluxStore = require('FluxStore');
+const FluxStore = require(\'FluxStore\');
 
-const abstractMethod = require('abstractMethod');
-const invariant = require('invariant');
+const abstractMethod = require(\'abstractMethod\');
+const invariant = require(\'invariant\');
 
 /**
  * This is the basic building block of a Flux application. All of your stores
@@ -133,9 +133,9 @@ const invariant = require('invariant');
  *
  *     reduce(state: number, action: Object): number {
  *       switch(action.type) {
- *         case: 'add':
+ *         case: \'add\':
  *           return state + action.value;
- *         case: 'double':
+ *         case: \'double\':
  *           return state * 2;
  *         default:
  *           return state;
@@ -164,7 +164,7 @@ class FluxReduceStore<TState> extends FluxStore {
    * construction of the store.
    */
   getInitialState(): TState {
-    return abstractMethod('FluxReduceStore', 'getInitialState');
+    return abstractMethod(\'FluxReduceStore\', \'getInitialState\');
   }
 
   /**
@@ -172,7 +172,7 @@ class FluxReduceStore<TState> extends FluxStore {
    * single state object.
    */
   reduce(state: TState, action: Object): TState {
-    return abstractMethod('FluxReduceStore', 'reduce');
+    return abstractMethod(\'FluxReduceStore\', \'reduce\');
   }
 
   /**
@@ -193,8 +193,8 @@ class FluxReduceStore<TState> extends FluxStore {
     // This means your ending state should never be undefined.
     invariant(
       endingState !== undefined,
-      '%s returned undefined from reduce(...), did you forget to return ' +
-      'state in the default case? (use null if this was intentional)',
+      \'%s returned undefined from reduce(...), did you forget to return \' +
+      \'state in the default case? (use null if this was intentional)\',
       this.constructor.name,
     );
 
@@ -217,12 +217,12 @@ module.exports = FluxReduceStore;
 "
 `;
 
-exports[`test large-numbers 0`] = `
+exports[`test large-numbers 1`] = `
 "100000000000000000000123456789;
 "
 `;
 
-exports[`test logical_expression_chains 0`] = `
+exports[`test logical_expression_chains 1`] = `
 "foo || bar && baz;
 
 (
@@ -332,7 +332,7 @@ foo(
 "
 `;
 
-exports[`test simple-block-comment 0`] = `
+exports[`test simple-block-comment 1`] = `
 "/*
  * comment
  */
@@ -340,26 +340,26 @@ exports[`test simple-block-comment 0`] = `
 "
 `;
 
-exports[`test simple-comment 0`] = `
+exports[`test simple-comment 1`] = `
 "// This is a comment
 1 + 1;
 "
 `;
 
-exports[`test simple-scope-breaking 0`] = `
+exports[`test simple-scope-breaking 1`] = `
 "const foo = {
-  meh: 'reasonably long value',
-  meh2: 'this one will make things wrap, hopefully...',
+  meh: \'reasonably long value\',
+  meh2: \'this one will make things wrap, hopefully...\',
 };
 "
 `;
 
-exports[`test string-escapes 0`] = `
-"let x = '\\\\\\\\\\\\\\'';
+exports[`test string-escapes 1`] = `
+"let x = \'\\\\\\\\\\\\\\\'\';
 "
 `;
 
-exports[`test variable-declarations 0`] = `
+exports[`test variable-declarations 1`] = `
 "var foo, bar;
 var baz;
 let buz = 1;
@@ -367,7 +367,7 @@ const qux = { one: 1, two: 2 };
 "
 `;
 
-exports[`test works 0`] = `
+exports[`test works 1`] = `
 "1 + 1;
 "
 `;

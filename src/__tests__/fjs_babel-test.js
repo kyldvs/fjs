@@ -87,12 +87,5 @@ testFixtures('babel', new Set([
   'VariableDeclaration-VariableDeclarator.js',
   'WhileStatement.js',
   'WithStatement.js',
-  'XJSAttribute.js',
-  'XJSElement-XJSOpeningElement-XJSClosingElement-XJSIdentifier.js',
-  'XJSEmptyExpression.js',
-  'XJSExpressionContainer.js',
-  'XJSMemberExpression.js',
-  'XJSNamespacedName.js',
-  'XJSSpreadAttribute.js',
   'YieldExpression.js',
 ]));

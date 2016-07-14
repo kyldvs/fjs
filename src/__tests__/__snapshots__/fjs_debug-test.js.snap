@@ -1,4 +1,4 @@
-exports[`test foo 0`] = `
+exports[`test foo 1`] = `
 "let element = <Foo>
   Hello
   <Bar p1=\"apple\" p2={foo} />

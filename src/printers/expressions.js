@@ -102,9 +102,6 @@ export default {
     print(node.typeAnnotation),
   ],
 
-  // JSXEmptyExpression: ({node, print}) => [],
-  // JSXMemberExpression: ({node, print}) => [],
-
   LogicalExpression: ({node, path, print}) => {
     const parenthesized = node.extra && node.extra.parenthesized;
 

@@ -45,6 +45,8 @@ export default {
     print(node.closingElement),
   ],
 
+  JSXEmptyExpression: () => [],
+
   JSXExpressionContainer: ({node, print}) => [
     Tokens.string('{'),
     Tokens.scopeOpen('jsx_expression_container'),
@@ -56,6 +58,18 @@ export default {
   ],
 
   JSXIdentifier: ({node}) => Tokens.string(node.name),
+
+  JSXMemberExpression: ({node, print}) => [
+    print(node.object),
+    Tokens.period(),
+    print(node.property),
+  ],
+
+  JSXNamespacedName: ({node, print}) => [
+    print(node.namespace),
+    Tokens.colon(),
+    print(node.name),
+  ],
 
   JSXOpeningElement: ({node, print}) => [
     Tokens.string('<'),
@@ -72,6 +86,13 @@ export default {
     (!node.attributes.length) && node.selfClosing && Tokens.space(),
     node.selfClosing && Tokens.string('/'),
     Tokens.string('>'),
+  ],
+
+  JSXSpreadAttribute: ({node, print}) => [
+    Tokens.string('{'),
+    Tokens.string('...'),
+    print(node.argument),
+    Tokens.string('}'),
   ],
 
   JSXText: ({node}) => node.value.trim()
