@@ -42,13 +42,6 @@ export default {
     print(node.argument),
   ],
 
-  ObjectProperty: ({print, node}) => [
-    print(node.key),
-    Tokens.colon(),
-    Tokens.space(),
-    print(node.value),
-  ],
-
   Directive: ({node, print}) => [
     print(node.value),
     Tokens.semiColon(),

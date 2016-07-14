@@ -48,7 +48,6 @@ const UNIMPLEMENTED = new Set([
   'MetaProperty',
   'NewExpression',
   'Noop',
-  'ObjectMethod',
   'ObjectTypeCallProperty',
   'ObjectTypeIndexer',
   'ObjectTypeProperty',

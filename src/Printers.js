@@ -40,15 +40,16 @@ export default {
 
   Object: ({print, properties}) => [
     Tokens.string('{'),
-    Tokens.scopeOpen('object'),
-    Tokens.scopeSpaceOrBreak(),
-    map(properties, (property, i, arr) => [
-      i > 0 && [Tokens.comma(), Tokens.scopeSpaceOrBreak()],
-      print(property),
-      i === arr.length - 1 && Tokens.scopeEmptyOrComma(),
-    ]),
-    Tokens.scopeSpaceOrBreak(),
-    Tokens.scopeClose(),
+    properties.length && [
+      Tokens.scopeOpen('object'),
+      map(properties, (property, i, arr) => [
+        Tokens.scopeSpaceOrBreak(),
+        print(property),
+        arr.length - 1 !== i ? Tokens.comma() : Tokens.scopeEmptyOrComma(),
+      ]),
+      Tokens.scopeSpaceOrBreak(),
+      Tokens.scopeClose(),
+    ],
     Tokens.string('}'),
   ],
 

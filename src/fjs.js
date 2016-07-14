@@ -21,6 +21,7 @@ export default function fjs(input: Input): Output {
       'syntax-jsx',
       'syntax-object-rest-spread',
       'syntax-trailing-function-commas',
+      'babel-plugin-syntax-async-functions',
     ],
   });
   const globalContext = getGlobalContext(ast);

@@ -37,8 +37,7 @@ foo = bar;
 `;
 
 exports[`test BlockStatement.js 1`] = `
-"{
-}
+"{}
 {
   foo();
 }
@@ -82,8 +81,7 @@ if (foo) {
   foobar();
 }
 
-if (foo) {
-}
+if (foo) {}
 
 if (foo) {
   foo();
@@ -134,6 +132,27 @@ foo[test()][bar()];
 0.5.toString();
 1.0.toString();
 1.000.toString();
+"
+`;
+
+exports[`test ObjectExpression-ObjectPattern-Property.js 1`] = `
+"var foo = {};
+
+var foo = { x, y };
+
+var foo = { x: x, y: y };
+
+var foo = { x: x, y: y };
+
+var foo = {
+  [\'bar\']: \'foo\',
+  [\'foo\']() {},
+  foo() {},
+  async foo() {},
+  *foo() {},
+  get foo() {},
+  set foo(foo) {},
+};
 "
 `;
 
@@ -201,13 +220,13 @@ exports[`test XJSSpreadAttribute.js 1`] = `
 exports[`test assignment-expression.js 1`] = `
 "1 + a = 2;
 1 + a = 2;
-a = a || a = {  };
+a = a || a = {};
 "
 `;
 
 exports[`test assignment.js 1`] = `
 "x = 1;
-var { y: y = 1 } = obj;
+var { y = 1 } = obj;
 "
 `;
 
@@ -282,56 +301,40 @@ exports[`test class-declaration.js 1`] = `
 class Derived extends Super {
 }
 class StaticMethods {
-  static n1() {
-  }
+  static n1() {}
 
-  static get1() {
-  }
+  static get1() {}
 
-  static set1(value) {
-  }
+  static set1(value) {}
 
-  static gen1() {
-  }
+  static gen1() {}
 }
 class Methods {
-  n2() {
-  }
+  n2() {}
 
-  get2() {
-  }
+  get2() {}
 
-  set2(value) {
-  }
+  set2(value) {}
 
-  gen1() {
-  }
+  gen1() {}
 }
 class ComputedStaticMethods {
-  static n1() {
-  }
+  static n1() {}
 
-  static get1() {
-  }
+  static get1() {}
 
-  static set1(value) {
-  }
+  static set1(value) {}
 
-  static gen1() {
-  }
+  static gen1() {}
 }
 class ComputedMethods {
-  n2() {
-  }
+  n2() {}
 
-  get2() {
-  }
+  get2() {}
 
-  set2(value) {
-  }
+  set2(value) {}
 
-  gen1() {
-  }
+  gen1() {}
 }
 "
 `;
@@ -359,10 +362,10 @@ exports[`test computed-property-comments-2.js 1`] = `
 "var test = { /**
      * Before bracket init
      */
-\'a\': \'1\', /*
+[\'a\']: \'1\', [/*
       * Inside bracket init
       */
-\'b\': \'2\' }, ok = 42;
+\'b\']: \'2\' }, ok = 42;
 "
 `;
 
@@ -371,19 +374,19 @@ exports[`test computed-property-comments.js 1`] = `
   /**
    * Before bracket init
    */
-  \'a\': \'1\',
-  /*
+  [\'a\']: \'1\',
+  [/*
     * Inside bracket init
     */
-  \'b\': \'2\',
-  \'c\': /*
+  \'b\']: \'2\',
+  [\'c\']: /*
     * After bracket key
     */\'3\',
   // Before bracket, line comment
-  \'d\': \'4\',
-  // Inside bracket, line comment
-  \'e\': \'5\',
-  \'f\': // After bracket, line comment
+  [\'d\']: \'4\',
+  [// Inside bracket, line comment
+  \'e\']: \'5\',
+  [\'f\']: // After bracket, line comment
   \'6\',
 };
 "
@@ -412,8 +415,7 @@ exports[`test empty.js 1`] = `
 `;
 
 exports[`test export-default-declaration.js 1`] = `
-"export default function a() {
-}
+"export default function a() {}
 "
 `;
 
@@ -454,6 +456,20 @@ exports[`test if-line-comment.js 1`] = `
     print(\'hello\');
   }
 }
+"
+`;
+
+exports[`test jsx.js 1`] = `
+"var single = \'quotes\';
+var outnumber = \'double\';
+var moreSingleQuotesThanDouble = \'!\';
+
+React.createClass({ render() {
+  return <View
+    multiple=\"attributes\"
+    attribute=\"If parent is JSX keep double quote\"
+  />;
+} });
 "
 `;
 
@@ -514,8 +530,8 @@ var a: 0o173;
 `;
 
 exports[`test object.js 1`] = `
-"{  } === foo;
-{  } && foo;
+"{} === foo;
+{} && foo;
 "
 `;
 
@@ -573,8 +589,7 @@ exports[`test simple-a-lot-of-line-comment.js 1`] = `
 // THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-function test() {
-}
+function test() {}
 "
 `;
 
@@ -603,8 +618,7 @@ exports[`test simple-a-lot-of-multi-comment.js 1`] = `
   THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-function test() {
-}
+function test() {}
 "
 `;
 
@@ -672,9 +686,9 @@ exports[`test soft-tab-4.js 1`] = `
 `;
 
 exports[`test string-literal-types.js 1`] = `
-"function createElement(tagName: \'div\') {
-}function createElement(tagName: \'div\') {
-}
+"function createElement(
+  tagName: \'div\',
+) {}function createElement(tagName: \'div\') {}
 "
 `;
 

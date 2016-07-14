@@ -13,11 +13,13 @@ export default {
     // TODO: Inner comments.
     // TODO: Directives?
     Tokens.string('{'),
-    Tokens.break(),
-    Tokens.indent(),
-    printStatements(node.body, print),
-    Tokens.break(),
-    Tokens.dedent(),
+    node.body.length && [
+      Tokens.break(),
+      Tokens.indent(),
+      printStatements(node.body, print),
+      Tokens.break(),
+      Tokens.dedent(),
+    ],
     Tokens.string('}'),
   ],
 

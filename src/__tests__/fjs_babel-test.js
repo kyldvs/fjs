@@ -9,7 +9,6 @@ import testFixtures from '../testFixtures';
 // Copied all the tests with something like this: (had to create directories first though)
 // find ~/dev/babel/packages/babel-generator/test/fixtures -name "actual.js" -exec bash -c 'cp "$1" $(echo "$1" | sed "s/\/actual//g" | sed -E "s/\/.*\/(.*)\//.\/\\1\//g")' -- {} \;
 testFixtures('babel', new Set([
-  'jsx.js',
   'do-while-line-comment.js',
   'function-block-line-comment.js',
   'return-no-argument.js',
@@ -75,7 +74,6 @@ testFixtures('babel', new Set([
   'ImportDeclaration-ImportSpecifier-ImportNamespaceSpecifier.js',
   'LabeledStatement.js',
   'NewExpression.js',
-  'ObjectExpression-ObjectPattern-Property.js',
   'ReturnStatement.js',
   'SequenceExpression.js',
   'SpreadElement-SpreadProperty.js',

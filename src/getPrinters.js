@@ -14,6 +14,7 @@ import importExport from './printers/importExport';
 import jsx from './printers/jsx';
 import literals from './printers/literals';
 import misc from './printers/misc';
+import object from './printers/object';
 import obsolete from './printers/obsolete';
 import patterns from './printers/patterns';
 import statements from './printers/statements';
@@ -31,6 +32,7 @@ export default function getPrinters() {
     ...jsx,
     ...literals,
     ...misc,
+    ...object,
     ...obsolete,
     ...patterns,
     ...statements,
