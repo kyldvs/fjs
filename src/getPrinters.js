@@ -10,6 +10,7 @@ import classes from './printers/classes';
 import comments from './printers/comments';
 import expressions from './printers/expressions';
 import flow from './printers/flow';
+import functions from './printers/functions';
 import importExport from './printers/importExport';
 import jsx from './printers/jsx';
 import literals from './printers/literals';
@@ -28,6 +29,7 @@ export default function getPrinters() {
     ...comments,
     ...expressions,
     ...flow,
+    ...functions,
     ...importExport,
     ...jsx,
     ...literals,

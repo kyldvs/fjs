@@ -38,6 +38,29 @@ export default {
     ],
   ],
 
+  Function: ({
+    async: async,
+    body,
+    generator,
+    id,
+    params,
+    print,
+  }) => [
+    async && [
+      Tokens.string('async'),
+      Tokens.space(),
+    ],
+    Tokens.string('function'),
+    Tokens.space(),
+    generator && Tokens.string('*'),
+    print(id),
+    Tokens.string('('),
+    params && printList(params, print),
+    Tokens.string(')'),
+    Tokens.space(),
+    print(body),
+  ],
+
   Object: ({print, properties}) => [
     Tokens.string('{'),
     properties.length && [
